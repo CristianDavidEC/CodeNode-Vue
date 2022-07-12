@@ -1,11 +1,9 @@
-<script setup>
-import Header from "./components/Header.vue";
-import SidebarMenu from "./components/SidebarMenu.vue";
-</script>
-
 <template>
-  <Header />
-  <SidebarMenu />
+  <Board />
 </template>
+
+<script setup>
+import Board from "./views/Board.vue";
+</script>
 
 <style></style>

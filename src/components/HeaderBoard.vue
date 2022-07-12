@@ -1,13 +1,9 @@
 <template>
-  <header class="w-fulllocal">
+  <header class="w-full">
     <nav
-      class="flex items-center justify-between bg-blue-900 shadow-blue-900/25 shadow-lg text-white p-5"
+      class="flex items-center justify-between bg-color shadow-blue-900/30 shadow-lg text-white py-2"
     >
-      <div class="flex">
-        <font-icon icon="fa-solid fa-laptop-code" size="2x" class="mr-3" />
-        <h1 class="font-bold text-2xl tracking-tight text-white">Code:Node</h1>
-      </div>
-      <div class="w-full flex justify-between px-32 font-bold self-center">
+      <div class="w-full flex justify-between px-20 font-bold self-center">
         <button
           class="px-5 py-1 rounded-full border-2 hover:shadow-lg hover:shadow-cyan-600/50"
         >
@@ -37,4 +33,9 @@
     </nav>
   </header>
 </template>
-hover:shadow
+
+<style>
+.bg-color {
+  background-color: rgb(1, 2, 46);
+}
+</style>
