@@ -9,8 +9,6 @@
 </template>
 
 <script setup>
-//------ Librerys ------//
-import Drawflow from "drawflow";
 //----- Components -----//
 import SidebarMenu from "../components/SidebarMenu.vue";
 import HeaderBoard from "../components/HeaderBoard.vue";

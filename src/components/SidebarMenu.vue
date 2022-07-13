@@ -1,6 +1,6 @@
 <template>
-  <aside class="w-56 border-r" aria-label="Sidebar">
-    <div class="py-4 h-screen bg-color text-white">
+  <aside class="w-56 border-r h-screen bg-color" aria-label="Sidebar">
+    <div class="py-4 text-white">
       <ul class="space-y-2 overflow-y-auto">
         <div class="flex border-b mx-3">
           <font-icon icon="fa-solid fa-laptop-code" size="2x" class="mr-3" />
@@ -8,15 +8,63 @@
             Code:Node
           </h1>
         </div>
-        <li class="py-3 border-b mx-3">Variables</li>
-        <li class="py-3 border-b mx-3">Math Operations</li>
-        <li class="py-3 border-b mx-3">Control</li>
-        <li class="py-3 border-b mx-3">Logic operations</li>
-        <li class="py-3 border-b mx-3">Cycles</li>
-        <li class="py-3 border-b mx-3">Functions</li>
+        <li
+          class="py-3 border-b mx-3"
+          draggable="true"
+          @dragstart="drag($event)"
+          :data-node="1"
+        >
+          Variables
+        </li>
+        <li
+          class="py-3 border-b mx-3"
+          draggable="true"
+          @dragstart="drag($event)"
+          :data-node="2"
+        >
+          Math Operations
+        </li>
+        <li
+          class="py-3 border-b mx-3"
+          draggable="true"
+          @dragstart="drag($event)"
+          :data-node="3"
+        >
+          Control
+        </li>
+        <li
+          class="py-3 border-b mx-3"
+          draggable="true"
+          @dragstart="drag($event)"
+          :data-node="4"
+        >
+          Logic operations
+        </li>
+        <li
+          class="py-3 border-b mx-3"
+          draggable="true"
+          @dragstart="drag($event)"
+          :data-node="5"
+        >
+          Cycles
+        </li>
+        <li
+          class="py-3 border-b mx-3"
+          draggable="true"
+          @dragstart="drag($event)"
+          :data-node="6"
+        >
+          Functions
+        </li>
       </ul>
     </div>
   </aside>
 </template>
+
+<script setup>
+const drag = (ev) => {
+  ev.dataTransfer.setData("node", ev.target.getAttribute("data-node"));
+};
+</script>
 
 <style></style>
