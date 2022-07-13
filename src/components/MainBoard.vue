@@ -5,24 +5,44 @@
 <script setup>
 import Drawflow from "drawflow";
 import { h, render, onMounted, ref } from "vue";
-import Node from "./Node.vue";
+import BoxNode from "./BoxNode.vue";
 
 let editor = ref({});
 const Vue = { version: 3, h, render };
 
+/**
+ * Create a instance of Drawflow and register the node components
+ */
 onMounted(() => {
   const id = document.getElementById("drawflow");
   editor = new Drawflow(id, Vue);
   editor.start();
-  editor.registerNode("1", Node, {}, {});
+  editor.registerNode("1", BoxNode, {}, {});
 });
 
+/**
+ * Add new node to drawflow after the drop event
+ */
 const drop = (ev) => {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("node");
-  console.log(typeof data);
-  console.log(editor);
-  editor.addNode(data, 1, 1, 200, 100, data, {}, data, "vue");
+  console.log(ev.clientX, ev.clientY);
+  let pos_x =
+    ev.clientX *
+      (editor.precanvas.clientWidth /
+        (editor.precanvas.clientWidth * editor.zoom)) -
+    editor.precanvas.getBoundingClientRect().x *
+      (editor.precanvas.clientWidth /
+        (editor.precanvas.clientWidth * editor.zoom));
+  let pos_y =
+    ev.clientY *
+      (editor.precanvas.clientHeight /
+        (editor.precanvas.clientHeight * editor.zoom)) -
+    editor.precanvas.getBoundingClientRect().y *
+      (editor.precanvas.clientHeight /
+        (editor.precanvas.clientHeight * editor.zoom));
+  console.log(pos_x, pos_y);
+  editor.addNode(data, 1, 1, pos_x, pos_y, data, {}, data, "vue");
 };
 
 const allowDrop = (ev) => {
@@ -30,14 +50,4 @@ const allowDrop = (ev) => {
 };
 </script>
 
-<style>
-#drawflow {
-  width: 100%;
-  height: 100%;
-  text-align: initial;
-  background: #ffffff;
-  background-size: 20px 20px;
-  background-image: linear-gradient(to right, #f1f1f1 1px, transparent 1px),
-    linear-gradient(to bottom, #f1f1f1 1px, transparent 1px);
-}
-</style>
+<style></style>

@@ -62,6 +62,10 @@
 </template>
 
 <script setup>
+/**
+ * When dragstart event is fired, set the data of the event
+ * to identify the component to be dragged
+ */
 const drag = (ev) => {
   ev.dataTransfer.setData("node", ev.target.getAttribute("data-node"));
 };

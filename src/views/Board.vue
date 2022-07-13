@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-row">
+  <div class="flex">
     <SidebarMenu />
-    <div class="flex flex-col w-full">
+    <div class="flex-col w-full">
       <HeaderBoard />
       <MainBoard />
     </div>
