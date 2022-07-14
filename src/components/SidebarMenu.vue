@@ -9,52 +9,60 @@
           </h1>
         </div>
         <li
-          class="py-3 border-b mx-3"
+          class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
           :data-node="'variable'"
         >
-          <font-icon icon="fa-solid fa-floppy-disk" />
-          Variables
+          <font-icon icon="fa fa-cubes" />
+          Variable
         </li>
+
         <li
-          class="py-3 border-b mx-3"
+          class="py-3 border-b mx-3 px-4"
+          draggable="true"
+          @dragstart="drag($event)"
+          :data-node="'assign'"
+        >
+          <font-icon icon="fa-solid fa-arrow-right-to-bracket" />
+          Assign
+        </li>
+
+        <li
+          class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
           :data-node="2"
         >
-          Math Operations
+          <font-icon icon="fa fa-calculator" />
+          Math Operation
         </li>
+
         <li
-          class="py-3 border-b mx-3"
-          draggable="true"
-          @dragstart="drag($event)"
-          :data-node="3"
-        >
-          Control
-        </li>
-        <li
-          class="py-3 border-b mx-3"
+          class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
           :data-node="4"
         >
-          Logic operations
+          <font-icon icon="fa-solid fa-code-merge" />
+          Logic operation
         </li>
         <li
-          class="py-3 border-b mx-3"
+          class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
           :data-node="5"
         >
-          Cycles
+          <font-icon icon="fa-solid fa-code-compare" />
+          Cycle
         </li>
         <li
-          class="py-3 border-b mx-3"
+          class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
           :data-node="6"
         >
+          <font-icon icon="fa-solid fa-gears" />
           Functions
         </li>
       </ul>

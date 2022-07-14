@@ -1,7 +1,7 @@
 <template>
-  <BoxNode title="Variable">
+  <BoxNode title="Assign">
     <template #icon>
-      <BIconBoxes class="title-color font-semibold text-lg" />
+      <BIconBoxArrowInRight class="title-color font-semibold text-lg" />
     </template>
     <template #content>
       <label for="Identify" class="text-blue-900 ml-2">Identify</label>
@@ -10,7 +10,7 @@
         id="Identify"
         name="Identify"
         class="border-2 border-blue-200 rounded-lg px-2 py-1 text-sm text-blue-900 focus:border-blue-400 focus:outline-none"
-        placeholder="Identify to Variable"
+        placeholder="Identify to Assign"
       />
 
       <label for="Value" class="text-blue-900 ml-2 pt-2">Value</label>
@@ -19,7 +19,7 @@
         id="Value"
         name="Value"
         class="border-2 border-blue-200 rounded-lg px-2 py-1 text-sm text-blue-900 focus:border-blue-400 focus:outline-none"
-        placeholder="Numerical Value"
+        disabled
       />
     </template>
   </BoxNode>
@@ -27,7 +27,7 @@
 
 <script setup>
 import BoxNode from "./BoxNode.vue";
-import { BIconBoxes } from "bootstrap-icons-vue";
+import { BIconBoxArrowInRight } from "bootstrap-icons-vue";
 </script>
 
 <style></style>

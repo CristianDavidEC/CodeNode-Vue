@@ -6,6 +6,7 @@
 import Drawflow from "drawflow";
 import { h, render, onMounted, ref, readonly } from "vue";
 import BoxVariable from "./boxes/BoxVariable.vue";
+import BoxAssign from "./boxes/BoxAssign.vue";
 
 let editor = ref({});
 const Vue = { version: 3, h, render };
@@ -13,6 +14,11 @@ const boxes = readonly([
   {
     name: "variable",
     in: 0,
+    out: 1,
+  },
+  {
+    name: "assign",
+    in: 1,
     out: 1,
   },
 ]);
@@ -25,6 +31,7 @@ onMounted(() => {
   editor = new Drawflow(id, Vue);
   editor.start();
   editor.registerNode("variable", BoxVariable, {}, {});
+  editor.registerNode("assign", BoxAssign, {}, {});
 });
 
 /**

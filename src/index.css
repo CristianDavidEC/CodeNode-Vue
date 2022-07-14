@@ -91,6 +91,16 @@ body {
     var(--dfNodeBoxShadowBR) var(--dfNodeBoxShadowS) var(--dfNodeBoxShadowColor);
 }
 
+.drawflow .drawflow-node:hover {
+  cursor: move;
+}
+
+.drawflow .drawflow-node.selected {
+  -webkit-box-shadow: 0px 0px 20px 1px rgba(27, 105, 194, 0.75);
+  -moz-box-shadow: 0px 0px 20px 1px rgba(27, 105, 194, 0.75);
+  box-shadow: 0px 0px 20px 1px rgba(27, 105, 194, 0.75);
+}
+
 .drawflow .drawflow-node .drawflow_content_node {
   width: 100%;
   display: block;
