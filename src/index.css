@@ -6,6 +6,32 @@
   --border-color: #cacaca;
   --background-color: #ffffff;
   --background-box-title: #f7f7f7;
+
+  --dfNodeBackgroundColor: #ffffff;
+  --dfNodeTextColor: rgba(15, 2, 40, 1);
+  --dfNodeBorderSize: 1px;
+  --dfNodeBorderColor: rgba(4, 55, 166, 1);
+  --dfNodeBorderRadius: 10px;
+  --dfNodeMinHeight: 40px;
+  --dfNodeMinWidth: 200px;
+  --dfNodeBoxShadowHL: 0px;
+  --dfNodeBoxShadowVL: 2px;
+  --dfNodeBoxShadowBR: 15px;
+  --dfNodeBoxShadowS: 2px;
+  --dfNodeBoxShadowColor: rgba(35, 59, 92, 1);
+
+  --dfLineWidth: 3px;
+  --dfLineColor: #4682b4;
+  --dfLineHoverColor: #4682b4;
+  --dfLineSelectedColor: #43b993;
+
+  --dfRerouteBorderWidth: 2px;
+  --dfRerouteBorderColor: #ffffff;
+  --dfRerouteBackgroundColor: #ffffff;
+
+  --dfRerouteHoverBorderWidth: 2px;
+  --dfRerouteHoverBorderColor: #ffffff;
+  --dfRerouteHoverBackgroundColor: #ffffff;
 }
 
 html,
@@ -27,7 +53,7 @@ body {
 .drawflow {
   width: 100%;
   height: 100%;
-  position: relative;
+  user-select: none;
 }
 
 .parent-drawflow {
@@ -46,26 +72,82 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  background: #0ff;
-  width: 160px;
-  min-height: 40px;
-  border-radius: 4px;
-  border: 2px solid #000;
-  color: #000;
-  z-index: 2;
-  padding: 15px;
-  flex-direction: row;
-  align-content: space-between;
+  width: 250px;
 }
 
-/*.drawflow .drawflow-node {
-  display: flex;
-  align-items: center;
-  position: sticky;
-  background: var(--background-color);
-  border: 1px solid var(--border-color);
-  -webkit-box-shadow: 0 2px 15px 2px var(--border-color);
-  box-shadow: 0 2px 15px 2px var(--border-color);
-  padding: 0px;
-  width: 200px;
-}*/
+.drawflow .drawflow-node {
+  background: var(--dfNodeBackgroundColor);
+  color: var(--dfNodeTextColor);
+  border: var(--dfNodeBorderSize) solid var(--dfNodeBorderColor);
+  border-radius: var(--dfNodeBorderRadius);
+  min-height: var(--dfNodeMinHeight);
+  min-width: var(--dfNodeMinWidth);
+  -webkit-box-shadow: var(--dfNodeBoxShadowHL) var(--dfNodeBoxShadowVL)
+    var(--dfNodeBoxShadowBR) var(--dfNodeBoxShadowS) var(--dfNodeBoxShadowColor);
+  box-shadow: var(--dfNodeBoxShadowHL) var(--dfNodeBoxShadowVL)
+    var(--dfNodeBoxShadowBR) var(--dfNodeBoxShadowS) var(--dfNodeBoxShadowColor);
+}
+
+.drawflow .drawflow-node .input {
+  left: -22px;
+  position: absolute;
+  background: white;
+  border: 2px solid rgba(35, 59, 92, 1);
+  border-radius: 50px;
+  height: 20px;
+  width: 20px;
+  z-index: 1;
+}
+
+.drawflow .drawflow-node .output {
+  right: -22px;
+  position: absolute;
+  background: white;
+  border: 2px solid rgba(35, 59, 92, 1);
+  border-radius: 50px;
+  height: 20px;
+  width: 20px;
+  z-index: 1;
+}
+
+/* 
+TODO: :hover
+      ::selection
+      ::
+*/
+
+/* Line Conecction*/
+.drawflow .connection {
+  position: absolute;
+  pointer-events: none;
+}
+.drawflow svg {
+  z-index: 0;
+  overflow: visible !important;
+}
+
+.drawflow .connection .main-path {
+  fill: none;
+  stroke-width: var(--dfLineWidth);
+  stroke: var(--dfLineColor);
+}
+
+.drawflow .connection .main-path:hover {
+  stroke: var(--dfLineHoverColor);
+}
+
+.drawflow .connection .main-path.selected {
+  stroke: var(--dfLineSelectedColor);
+}
+
+.drawflow .connection .point {
+  stroke: var(--dfRerouteBorderColor);
+  stroke-width: var(--dfRerouteBorderWidth);
+  fill: var(--dfRerouteBackgroundColor);
+}
+
+.drawflow .connection .point:hover {
+  stroke: var(--dfRerouteHoverBorderColor);
+  stroke-width: var(--dfRerouteHoverBorderWidth);
+  fill: var(--dfRerouteHoverBackgroundColor);
+}
