@@ -7,6 +7,13 @@
   --background-color: #ffffff;
   --background-box-title: #f7f7f7;
 
+  --dfBackgroundColor: rgba(254, 254, 254, 1);
+  --dfBackgroundSize: 10px;
+  --dfBackgroundImage: radial-gradient(
+    rgba(175, 179, 225, 1) 1px,
+    transparent 1px
+  );
+
   --dfNodeBackgroundColor: #ffffff;
   --dfNodeTextColor: rgba(15, 2, 40, 1);
   --dfNodeBorderSize: 1px;
@@ -44,10 +51,9 @@ body {
 #drawflow {
   width: 100%;
   height: 100%;
-  background: var(--background-color);
-  background-size: 25px 25px;
-  background-image: linear-gradient(to right, #f1f1f1 1px, transparent 1px),
-    linear-gradient(to bottom, #f1f1f1 1px, transparent 1px);
+  background: var(--dfBackgroundColor);
+  background-size: var(--dfBackgroundSize) var(--dfBackgroundSize);
+  background-image: var(--dfBackgroundImage);
 }
 
 .drawflow {
@@ -86,6 +92,11 @@ body {
     var(--dfNodeBoxShadowBR) var(--dfNodeBoxShadowS) var(--dfNodeBoxShadowColor);
   box-shadow: var(--dfNodeBoxShadowHL) var(--dfNodeBoxShadowVL)
     var(--dfNodeBoxShadowBR) var(--dfNodeBoxShadowS) var(--dfNodeBoxShadowColor);
+}
+
+.drawflow .drawflow-node .drawflow_content_node {
+  width: 100%;
+  display: block;
 }
 
 .drawflow .drawflow-node .input {

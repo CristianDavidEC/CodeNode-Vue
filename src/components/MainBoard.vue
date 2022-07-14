@@ -5,7 +5,7 @@
 <script setup>
 import Drawflow from "drawflow";
 import { h, render, onMounted, ref } from "vue";
-import BoxNode from "./BoxNode.vue";
+import BoxVariable from "./boxes/BoxVariable.vue";
 
 let editor = ref({});
 const Vue = { version: 3, h, render };
@@ -17,7 +17,7 @@ onMounted(() => {
   const id = document.getElementById("drawflow");
   editor = new Drawflow(id, Vue);
   editor.start();
-  editor.registerNode("1", BoxNode, {}, {});
+  editor.registerNode("1", BoxVariable, {}, {});
 });
 
 /**

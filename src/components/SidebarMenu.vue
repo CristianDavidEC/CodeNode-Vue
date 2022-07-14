@@ -14,6 +14,7 @@
           @dragstart="drag($event)"
           :data-node="1"
         >
+          <font-icon icon="fa-solid fa-floppy-disk" />
           Variables
         </li>
         <li
