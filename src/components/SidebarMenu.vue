@@ -12,7 +12,7 @@
           class="py-3 border-b mx-3"
           draggable="true"
           @dragstart="drag($event)"
-          :data-node="1"
+          :data-node="'variable'"
         >
           <font-icon icon="fa-solid fa-floppy-disk" />
           Variables

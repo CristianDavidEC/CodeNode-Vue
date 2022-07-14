@@ -4,11 +4,18 @@
 
 <script setup>
 import Drawflow from "drawflow";
-import { h, render, onMounted, ref } from "vue";
+import { h, render, onMounted, ref, readonly } from "vue";
 import BoxVariable from "./boxes/BoxVariable.vue";
 
 let editor = ref({});
 const Vue = { version: 3, h, render };
+const boxes = readonly([
+  {
+    name: "variable",
+    in: 0,
+    out: 1,
+  },
+]);
 
 /**
  * Create a instance of Drawflow and register the node components
@@ -17,7 +24,7 @@ onMounted(() => {
   const id = document.getElementById("drawflow");
   editor = new Drawflow(id, Vue);
   editor.start();
-  editor.registerNode("1", BoxVariable, {}, {});
+  editor.registerNode("variable", BoxVariable, {}, {});
 });
 
 /**
@@ -25,29 +32,46 @@ onMounted(() => {
  */
 const drop = (ev) => {
   ev.preventDefault();
-  var data = ev.dataTransfer.getData("node");
-  console.log(ev.clientX, ev.clientY);
-  let pos_x =
-    ev.clientX *
-      (editor.precanvas.clientWidth /
-        (editor.precanvas.clientWidth * editor.zoom)) -
-    editor.precanvas.getBoundingClientRect().x *
-      (editor.precanvas.clientWidth /
-        (editor.precanvas.clientWidth * editor.zoom));
-  let pos_y =
-    ev.clientY *
-      (editor.precanvas.clientHeight /
-        (editor.precanvas.clientHeight * editor.zoom)) -
-    editor.precanvas.getBoundingClientRect().y *
-      (editor.precanvas.clientHeight /
-        (editor.precanvas.clientHeight * editor.zoom));
-  console.log(pos_x, pos_y);
-  editor.addNode(data, 1, 1, pos_x, pos_y, data, {}, data, "vue");
+  let data = ev.dataTransfer.getData("node");
+  const node = boxes.find((box) => box.name == data);
+  let { x, y } = positionXY(ev.clientX, ev.clientY);
+  editor.addNode(
+    node.name,
+    node.in,
+    node.out,
+    x,
+    y,
+    node.name,
+    {},
+    node.name,
+    "vue"
+  );
 };
 
 const allowDrop = (ev) => {
   ev.preventDefault();
 };
+
+/**
+ * Get the position of the node to be dropped
+ */
+function positionXY(posX, posY) {
+  let x =
+    posX *
+      (editor.precanvas.clientWidth /
+        (editor.precanvas.clientWidth * editor.zoom)) -
+    editor.precanvas.getBoundingClientRect().x *
+      (editor.precanvas.clientWidth /
+        (editor.precanvas.clientWidth * editor.zoom));
+  let y =
+    posY *
+      (editor.precanvas.clientHeight /
+        (editor.precanvas.clientHeight * editor.zoom)) -
+    editor.precanvas.getBoundingClientRect().y *
+      (editor.precanvas.clientHeight /
+        (editor.precanvas.clientHeight * editor.zoom));
+  return { x, y };
+}
 </script>
 
 <style></style>

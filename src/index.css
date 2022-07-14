@@ -8,11 +8,8 @@
   --background-box-title: #f7f7f7;
 
   --dfBackgroundColor: rgba(254, 254, 254, 1);
-  --dfBackgroundSize: 10px;
-  --dfBackgroundImage: radial-gradient(
-    rgba(175, 179, 225, 1) 1px,
-    transparent 1px
-  );
+  --dfBackgroundSize: 15px;
+  --dfBackgroundImage: radial-gradient(rgb(193, 195, 217) 1px, transparent 1px);
 
   --dfNodeBackgroundColor: #ffffff;
   --dfNodeTextColor: rgba(15, 2, 40, 1);
@@ -78,7 +75,7 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  width: 250px;
+  width: 200px;
 }
 
 .drawflow .drawflow-node {
