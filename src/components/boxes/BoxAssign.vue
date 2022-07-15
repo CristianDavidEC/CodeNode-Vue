@@ -4,7 +4,9 @@
       <BIconBoxArrowInRight class="title-color font-semibold text-lg" />
     </template>
     <template #content>
-      <label for="Identify" class="text-blue-900 ml-2">Identify</label>
+      <label for="Identify" class="text-blue-900 ml-2 font-medium"
+        >Identify</label
+      >
       <input
         type="text"
         id="Identify"
@@ -13,7 +15,9 @@
         placeholder="Identify to Assign"
       />
 
-      <label for="Value" class="text-blue-900 ml-2 pt-2">Value</label>
+      <label for="Value" class="text-blue-900 ml-2 font-medium pt-2"
+        >Value</label
+      >
       <input
         type="number"
         id="Value"

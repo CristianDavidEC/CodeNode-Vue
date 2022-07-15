@@ -76,6 +76,7 @@ body {
   align-items: center;
   position: absolute;
   width: 200px;
+  z-index: 2;
 }
 
 .drawflow .drawflow-node {
@@ -107,25 +108,61 @@ body {
 }
 
 .drawflow .drawflow-node .input {
-  left: -22px;
-  position: absolute;
+  left: -25px;
+  position: relative;
   background: white;
   border: 2px solid rgba(35, 59, 92, 1);
   border-radius: 50px;
   height: 20px;
   width: 20px;
   z-index: 1;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.drawflow .math .input_1 {
+  top: -5px;
+}
+
+.drawflow .math .input_2 {
+  top: 35px;
+}
+
+.drawflow .logic .input_1 {
+  top: -7px;
+}
+
+.drawflow .logic .input_2 {
+  top: 40px;
 }
 
 .drawflow .drawflow-node .output {
-  right: -22px;
-  position: absolute;
+  right: -5px;
+  position: relative;
   background: white;
   border: 2px solid rgba(35, 59, 92, 1);
   border-radius: 50px;
   height: 20px;
   width: 20px;
   z-index: 1;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.drawflow .logic .output_1 {
+  top: -7px;
+}
+
+.drawflow .logic .output_2 {
+  top: 40px;
+}
+
+.drawflow .drawflow-node .outputs {
+  width: 0;
+}
+
+.drawflow .drawflow-node .inputs {
+  width: 0;
 }
 
 /* 

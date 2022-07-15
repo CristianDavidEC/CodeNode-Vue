@@ -32,7 +32,7 @@
           class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
-          :data-node="2"
+          :data-node="'math'"
         >
           <font-icon icon="fa fa-calculator" />
           Math Operation
@@ -42,10 +42,10 @@
           class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
-          :data-node="4"
+          :data-node="'logic'"
         >
           <font-icon icon="fa-solid fa-code-merge" />
-          Logic operation
+          Logic Operation
         </li>
         <li
           class="py-3 border-b mx-3 px-4"
@@ -60,7 +60,7 @@
           class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
-          :data-node="6"
+          :data-node="'cicle'"
         >
           <font-icon icon="fa-solid fa-gears" />
           Functions

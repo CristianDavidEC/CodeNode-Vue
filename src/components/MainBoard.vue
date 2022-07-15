@@ -7,6 +7,8 @@ import Drawflow from "drawflow";
 import { h, render, onMounted, ref, readonly } from "vue";
 import BoxVariable from "./boxes/BoxVariable.vue";
 import BoxAssign from "./boxes/BoxAssign.vue";
+import BoxMath from "./boxes/BoxMath.vue";
+import BoxLogic from "./boxes/BoxLogic.vue";
 
 let editor = ref({});
 const Vue = { version: 3, h, render };
@@ -21,6 +23,21 @@ const boxes = readonly([
     in: 1,
     out: 1,
   },
+  {
+    name: "math",
+    in: 2,
+    out: 1,
+  },
+  {
+    name: "logic",
+    in: 2,
+    out: 2,
+  },
+  {
+    name: "cicle",
+    in: 2,
+    out: 1,
+  },
 ]);
 
 /**
@@ -32,6 +49,8 @@ onMounted(() => {
   editor.start();
   editor.registerNode("variable", BoxVariable, {}, {});
   editor.registerNode("assign", BoxAssign, {}, {});
+  editor.registerNode("math", BoxMath, {}, {});
+  editor.registerNode("logic", BoxLogic, {}, {});
 });
 
 /**
