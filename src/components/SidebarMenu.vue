@@ -51,12 +51,12 @@
           class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
-          :data-node="5"
+          :data-node="'cicle'"
         >
           <font-icon icon="fa-solid fa-code-compare" />
           Cycle
         </li>
-        <li
+        <!--<li
           class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
@@ -64,7 +64,7 @@
         >
           <font-icon icon="fa-solid fa-gears" />
           Functions
-        </li>
+        </li>-->
       </ul>
     </div>
   </aside>

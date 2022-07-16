@@ -25,8 +25,8 @@
   --dfNodeBoxShadowColor: rgba(35, 59, 92, 1);
 
   --dfLineWidth: 3px;
-  --dfLineColor: #4682b4;
-  --dfLineHoverColor: #4682b4;
+  --dfLineColor: #4993cf;
+  --dfLineHoverColor: #234561;
   --dfLineSelectedColor: #43b993;
 
   --dfRerouteBorderWidth: 2px;
@@ -71,6 +71,7 @@ body {
   position: relative;
 }
 
+/*Node Styles*/
 .drawflow .drawflow-node {
   display: flex;
   align-items: center;
@@ -107,6 +108,7 @@ body {
   display: block;
 }
 
+/* Inputs and Outputs Styles */
 .drawflow .drawflow-node .input {
   left: -25px;
   position: relative;
@@ -136,6 +138,14 @@ body {
   top: 40px;
 }
 
+.drawflow .cicle .input_1 {
+  top: 10px;
+}
+
+.drawflow .cicle .input_2 {
+  top: 20px;
+}
+
 .drawflow .drawflow-node .output {
   right: -5px;
   position: relative;
@@ -157,6 +167,14 @@ body {
   top: 40px;
 }
 
+.drawflow .math .output_1 {
+  top: 17px;
+}
+
+.drawflow .cicle .output_1 {
+  top: 17px;
+}
+
 .drawflow .drawflow-node .outputs {
   width: 0;
 }
@@ -165,11 +183,17 @@ body {
   width: 0;
 }
 
-/* 
-TODO: :hover
-      ::selection
-      ::
-*/
+.drawflow .drawflow-node .input:hover {
+  cursor: crosshair;
+  border-color: rgb(7, 7, 87);
+  background-color: rgb(193, 193, 219);
+}
+
+.drawflow .drawflow-node .output:hover {
+  cursor: crosshair;
+  border-color: rgb(7, 7, 87);
+  background-color: rgb(193, 193, 219);
+}
 
 /* Line Conecction*/
 .drawflow .connection {
