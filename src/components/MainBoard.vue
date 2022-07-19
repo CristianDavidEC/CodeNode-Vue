@@ -1,16 +1,13 @@
 <template>
-  <div id="drawflow" @drop="drop($event)" @dragover="allowDrop($event)"></div>
+  <div
+    id="drawflow"
+    @drop="renderNode($event)"
+    @dragover="allowDrop($event)"
+  ></div>
 </template>
 
 <script setup>
-import {
-  h,
-  render,
-  onMounted,
-  shallowRef,
-  readonly,
-  getCurrentInstance,
-} from "vue";
+import { h, render, onMounted, readonly, shallowRef } from "vue";
 import Drawflow from "drawflow";
 import BoxVariable from "./boxes/BoxVariable.vue";
 import BoxAssign from "./boxes/BoxAssign.vue";
@@ -18,10 +15,8 @@ import BoxMath from "./boxes/BoxMath.vue";
 import BoxLogic from "./boxes/BoxLogic.vue";
 import BoxCicle from "./boxes/BoxCicle.vue";
 
-let editor = shallowRef({});
-const Vue = { version: 3, h, render };
-const internalInstance = getCurrentInstance();
-internalInstance.appContext.app._context.config.globalProperties.$df = editor;
+const drawFlow = shallowRef({});
+const vue = { version: 3, h, render };
 
 const boxes = readonly([
   {
@@ -46,7 +41,7 @@ const boxes = readonly([
   },
   {
     name: "cicle",
-    in: 2,
+    input: 2,
     out: 1,
   },
 ]);
@@ -55,25 +50,27 @@ const boxes = readonly([
  * Create a instance of Drawflow and register the node components
  */
 onMounted(() => {
-  const id = document.getElementById("drawflow");
-  editor = new Drawflow(id, Vue, internalInstance.appContext.app._context);
-  editor.start();
-  editor.registerNode("variable", BoxVariable, {}, {});
-  editor.registerNode("assign", BoxAssign, {}, {});
-  editor.registerNode("math", BoxMath, {}, {});
-  editor.registerNode("logic", BoxLogic, {}, {});
-  editor.registerNode("cicle", BoxCicle, {}, {});
+  const idContainer = document.getElementById("drawflow");
+  drawFlow.value = new Drawflow(idContainer, vue);
+  drawFlow.value.reroute = true;
+  drawFlow.value.start();
+
+  drawFlow.value.registerNode("variable", BoxVariable, {}, {});
+  drawFlow.value.registerNode("assign", BoxAssign, {}, {});
+  drawFlow.value.registerNode("math", BoxMath, {}, {});
+  drawFlow.value.registerNode("logic", BoxLogic, {}, {});
+  drawFlow.value.registerNode("cicle", BoxCicle, {}, {});
 });
 
 /**
  * Add new node to drawflow after the drop event
  */
-const drop = (ev) => {
+const renderNode = (ev) => {
   ev.preventDefault();
-  let data = ev.dataTransfer.getData("node");
-  const node = boxes.find((box) => box.name == data);
+  let nameNode = ev.dataTransfer.getData("node");
+  const node = boxes.find((box) => box.name == nameNode);
   let { x, y } = positionXY(ev.clientX, ev.clientY);
-  editor.addNode(
+  drawFlow.value.addNode(
     node.name,
     node.in,
     node.out,
@@ -84,6 +81,7 @@ const drop = (ev) => {
     node.name,
     "vue"
   );
+  
 };
 
 const allowDrop = (ev) => {
@@ -96,18 +94,18 @@ const allowDrop = (ev) => {
 function positionXY(posX, posY) {
   let x =
     posX *
-      (editor.precanvas.clientWidth /
-        (editor.precanvas.clientWidth * editor.zoom)) -
-    editor.precanvas.getBoundingClientRect().x *
-      (editor.precanvas.clientWidth /
-        (editor.precanvas.clientWidth * editor.zoom));
+      (drawFlow.value.precanvas.clientWidth /
+        (drawFlow.value.precanvas.clientWidth * drawFlow.value.zoom)) -
+    drawFlow.value.precanvas.getBoundingClientRect().x *
+      (drawFlow.value.precanvas.clientWidth /
+        (drawFlow.value.precanvas.clientWidth * drawFlow.value.zoom));
   let y =
     posY *
-      (editor.precanvas.clientHeight /
-        (editor.precanvas.clientHeight * editor.zoom)) -
-    editor.precanvas.getBoundingClientRect().y *
-      (editor.precanvas.clientHeight /
-        (editor.precanvas.clientHeight * editor.zoom));
+      (drawFlow.value.precanvas.clientHeight /
+        (drawFlow.value.precanvas.clientHeight * drawFlow.value.zoom)) -
+    drawFlow.value.precanvas.getBoundingClientRect().y *
+      (drawFlow.value.precanvas.clientHeight /
+        (drawFlow.value.precanvas.clientHeight * drawFlow.value.zoom));
   return { x, y };
 }
 </script>

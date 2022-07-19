@@ -23,19 +23,6 @@
   --dfNodeBoxShadowBR: 15px;
   --dfNodeBoxShadowS: 2px;
   --dfNodeBoxShadowColor: rgba(35, 59, 92, 1);
-
-  --dfLineWidth: 3px;
-  --dfLineColor: #4993cf;
-  --dfLineHoverColor: #234561;
-  --dfLineSelectedColor: #43b993;
-
-  --dfRerouteBorderWidth: 2px;
-  --dfRerouteBorderColor: #ffffff;
-  --dfRerouteBackgroundColor: #ffffff;
-
-  --dfRerouteHoverBorderWidth: 2px;
-  --dfRerouteHoverBorderColor: #ffffff;
-  --dfRerouteHoverBackgroundColor: #ffffff;
 }
 
 html,
@@ -106,6 +93,29 @@ body {
 .drawflow .drawflow-node .drawflow_content_node {
   width: 100%;
   display: block;
+}
+
+.drawflow-delete {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  border: 2px solid #4993cf;
+  border-radius: 50px;
+  height: 20px;
+  width: 20px;
+  top: -10px;
+  left: 190px;
+  background: white;
+  color: #4993cf;
+  padding-bottom: 6px;
+  font-size: 22px;
+}
+
+.drawflow-delete:hover {
+  border: 2px solid #3a72a0;
+  background: white;
+  color: #3a72a0;
 }
 
 /* Inputs and Outputs Styles */
@@ -198,7 +208,6 @@ body {
 /* Line Conecction*/
 .drawflow .connection {
   position: absolute;
-  pointer-events: none;
 }
 .drawflow svg {
   z-index: 0;
@@ -207,26 +216,25 @@ body {
 
 .drawflow .connection .main-path {
   fill: none;
-  stroke-width: var(--dfLineWidth);
-  stroke: var(--dfLineColor);
+  stroke-width: 4px;
+  stroke: #4993cf;
 }
 
 .drawflow .connection .main-path:hover {
-  stroke: var(--dfLineHoverColor);
+  cursor: pointer;
+  stroke: #407fb2;
 }
 
 .drawflow .connection .main-path.selected {
-  stroke: var(--dfLineSelectedColor);
+  stroke: #46a2b9;
 }
 
 .drawflow .connection .point {
-  stroke: var(--dfRerouteBorderColor);
-  stroke-width: var(--dfRerouteBorderWidth);
-  fill: var(--dfRerouteBackgroundColor);
+  stroke: #4993cf;
+  stroke-width: 2px;
+  fill: white;
 }
 
 .drawflow .connection .point:hover {
-  stroke: var(--dfRerouteHoverBorderColor);
-  stroke-width: var(--dfRerouteHoverBorderWidth);
-  fill: var(--dfRerouteHoverBackgroundColor);
+  fill: #84bae3;
 }

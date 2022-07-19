@@ -1,12 +1,13 @@
 <template>
+  <span ref="element"></span>
   <BoxNode title="Variable">
     <template #icon>
       <BIconBoxes class="title-color font-semibold text-lg" />
     </template>
     <template #content>
-      <label for="Identify" class="text-blue-900 ml-2 font-medium"
-        >Identify</label
-      >
+      <label for="Identify" class="text-blue-900 ml-2 font-medium">
+        Identify
+      </label>
       <input
         type="text"
         id="Identify"
@@ -32,6 +33,20 @@
 <script setup>
 import BoxNode from "./BoxNode.vue";
 import { BIconBoxes } from "bootstrap-icons-vue";
+import { ref, onMounted, nextTick } from "vue";
+
+const element = ref(null);
+const nodeId = ref(0);
+
+onMounted(async () => {
+  await nextTick();
+  nodeId.value = element.value.parentElement.parentElement.id.slice(5);
+  console.log(nodeId.value);
+  //dataNode.value = df.getNodeFromId(nodeId.value);
+
+  //url.value = dataNode.value.data.url;
+  //method.value = dataNode.value.data.method;
+});
 </script>
 
 <style></style>
