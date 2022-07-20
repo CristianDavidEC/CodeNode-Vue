@@ -15,9 +15,11 @@
 
 <script setup>
 import { reactive, watch } from "vue";
+import useProgramStore from "../../store/program.js";
 import { BIconArrowRepeat } from "bootstrap-icons-vue";
-
 import BoxNode from "./BoxNode.vue";
+
+const programStore = useProgramStore();
 
 const nodeInfo = reactive({
   type: "Cicle",
@@ -26,6 +28,8 @@ const nodeInfo = reactive({
   to: 0,
   cicle: {},
 });
+
+programStore.addNodeProgram(nodeInfo);
 
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;

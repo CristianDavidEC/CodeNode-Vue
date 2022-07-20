@@ -32,15 +32,18 @@
 
 <script setup>
 import BoxNode from "./BoxNode.vue";
+import useProgramStore from "../../store/program.js";
 import { BIconBoxArrowInRight } from "bootstrap-icons-vue";
 import { reactive, watch } from "vue";
 
+const programStore = useProgramStore();
 const nodeInfo = reactive({
   type: "Assign",
   nodeId: "",
   identifier: "",
   value: 0,
 });
+programStore.addNodeProgram(nodeInfo);
 
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;

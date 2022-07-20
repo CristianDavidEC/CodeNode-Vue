@@ -68,9 +68,11 @@
 
 <script setup>
 import { reactive, watch } from "vue";
+import useProgramStore from "../../store/program.js";
 import { BIconShuffle } from "bootstrap-icons-vue";
 import BoxNode from "./BoxNode.vue";
 
+const programStore = useProgramStore();
 const nodeInfo = reactive({
   type: "LogicOperation",
   nodeId: "",
@@ -80,6 +82,8 @@ const nodeInfo = reactive({
   trueCondition: {},
   falseCondition: {},
 });
+
+programStore.addNodeProgram(nodeInfo);
 
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;

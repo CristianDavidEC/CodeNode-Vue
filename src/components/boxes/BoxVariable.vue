@@ -38,16 +38,13 @@ import { reactive, watch } from "vue";
 import useProgramStore from "../../store/program.js";
 
 const programStore = useProgramStore();
-let program = [...programStore.nodesProgram];
 const nodeInfo = reactive({
   type: "Variable",
   nodeId: "",
   identifier: "",
   value: 0,
 });
-
-program.push(nodeInfo);
-programStore.nodesProgram = program;
+programStore.addNodeProgram(nodeInfo);
 
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;

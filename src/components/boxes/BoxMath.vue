@@ -54,6 +54,7 @@
 
 <script setup>
 import { reactive, watch } from "vue";
+import useProgramStore from "../../store/program.js";
 import {
   BIconCalculator,
   BIconPlusSquare,
@@ -64,6 +65,7 @@ import {
 
 import BoxNode from "./BoxNode.vue";
 
+const programStore = useProgramStore();
 const nodeInfo = reactive({
   type: "MathOperation",
   nodeId: "",
@@ -71,6 +73,7 @@ const nodeInfo = reactive({
   value1: 0,
   value2: 0,
 });
+programStore.addNodeProgram(nodeInfo);
 
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;

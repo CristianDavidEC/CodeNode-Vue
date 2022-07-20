@@ -24,9 +24,11 @@
 
 <script setup>
 import { reactive, watch } from "vue";
+import useProgramStore from "../../store/program.js";
 import { BIconPrinter } from "bootstrap-icons-vue";
-
 import BoxNode from "./BoxNode.vue";
+
+const programStore = useProgramStore();
 
 const nodeInfo = reactive({
   type: "Print",
@@ -34,6 +36,7 @@ const nodeInfo = reactive({
   message: "",
   valuePrint: "",
 });
+programStore.addNodeProgram(nodeInfo);
 
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;
