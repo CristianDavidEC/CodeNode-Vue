@@ -56,15 +56,15 @@
           <font-icon icon="fa-solid fa-code-compare" />
           Cycle
         </li>
-        <!--<li
+        <li
           class="py-3 border-b mx-3 px-4"
           draggable="true"
           @dragstart="drag($event)"
-          :data-node="'cicle'"
+          :data-node="'print'"
         >
-          <font-icon icon="fa-solid fa-gears" />
-          Functions
-        </li>-->
+          <font-icon icon="fa-solid fa-print" />
+          Print
+        </li>
       </ul>
     </div>
   </aside>

@@ -1,5 +1,5 @@
 <template>
-  <BoxNode title="Cicle">
+  <BoxNode title="Cicle" @onNodeId="addNodeId($event)">
     <template #icon>
       <BIconArrowRepeat class="title-color font-semibold text-lg" />
     </template>
@@ -14,10 +14,24 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { reactive, watch } from "vue";
 import { BIconArrowRepeat } from "bootstrap-icons-vue";
 
 import BoxNode from "./BoxNode.vue";
 
-const selectOperation = ref("");
+const nodeInfo = reactive({
+  type: "Cicle",
+  nodeId: "",
+  from: 0,
+  to: 0,
+  cicle: {},
+});
+
+const addNodeId = (event) => {
+  nodeInfo.nodeId = event;
+};
+
+watch(nodeInfo, (val) => {
+  console.log(val);
+});
 </script>

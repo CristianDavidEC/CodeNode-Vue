@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-col justify-center w-full">
+  <div class="flex-col justify-center w-full" ref="element">
     <div
       class="flex justify-center items-center text-center py-1 bg-blue-100 border-b border-blue-900 rounded-t-xl"
     >
@@ -13,8 +13,21 @@
 </template>
 
 <script setup>
+import { ref, onMounted, nextTick } from "vue";
+
 const props = defineProps({
   title: String,
+});
+
+const element = ref(null);
+const idNode = ref(0);
+
+const emitId = defineEmits(["onNodeId"]);
+
+onMounted(async () => {
+  await nextTick();
+  idNode.value = element.value.parentElement.parentElement.id.slice(5);
+  emitId("onNodeId", idNode.value);
 });
 </script>
 

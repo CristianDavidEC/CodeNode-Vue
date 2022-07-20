@@ -156,6 +156,10 @@ body {
   top: 20px;
 }
 
+.drawflow .print .input_1 {
+  top: 50px;
+}
+
 .drawflow .drawflow-node .output {
   right: -5px;
   position: relative;

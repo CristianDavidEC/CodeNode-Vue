@@ -1,6 +1,5 @@
 <template>
-  <span ref="element"></span>
-  <BoxNode title="Variable">
+  <BoxNode title="Variable" @onNodeId="addNodeId($event)">
     <template #icon>
       <BIconBoxes class="title-color font-semibold text-lg" />
     </template>
@@ -14,6 +13,7 @@
         name="Identify"
         class="border-2 border-blue-200 rounded-lg px-2 py-1 text-sm text-blue-900 focus:border-blue-400 focus:outline-none"
         placeholder="Identify to Variable"
+        v-model="nodeInfo.identifier"
       />
 
       <label for="Value" class="text-blue-900 ml-2 pt-2 font-medium"
@@ -25,6 +25,7 @@
         name="Value"
         class="border-2 border-blue-200 rounded-lg px-2 py-1 text-sm text-blue-900 focus:border-blue-400 focus:outline-none"
         placeholder="Numerical Value"
+        v-model="nodeInfo.value"
       />
     </template>
   </BoxNode>
@@ -33,19 +34,21 @@
 <script setup>
 import BoxNode from "./BoxNode.vue";
 import { BIconBoxes } from "bootstrap-icons-vue";
-import { ref, onMounted, nextTick } from "vue";
+import { reactive, watch } from "vue";
 
-const element = ref(null);
-const nodeId = ref(0);
+const nodeInfo = reactive({
+  type: "Variable",
+  nodeId: "",
+  identifier: "",
+  value: 0,
+});
 
-onMounted(async () => {
-  await nextTick();
-  nodeId.value = element.value.parentElement.parentElement.id.slice(5);
-  console.log(nodeId.value);
-  //dataNode.value = df.getNodeFromId(nodeId.value);
+const addNodeId = (event) => {
+  nodeInfo.nodeId = event;
+};
 
-  //url.value = dataNode.value.data.url;
-  //method.value = dataNode.value.data.method;
+watch(nodeInfo, (val) => {
+  console.log(val);
 });
 </script>
 

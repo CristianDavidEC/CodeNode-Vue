@@ -1,5 +1,5 @@
 <template>
-  <BoxNode title="Math Operation">
+  <BoxNode title="Math Operation" @onNodeId="addNodeId($event)">
     <template #icon>
       <BIconCalculator class="title-color font-semibold text-lg" />
     </template>
@@ -9,41 +9,39 @@
 
         <div class="flex justify-between px-5 text-2xl my-3 text-blue-900">
           <span
-            value="Add"
             class="hover:bg-blue-400 hover:text-white p-1 rounded-lg"
-            @click="selectOperation = 'Add'"
-            :class="selectOperation == 'Add' ? 'bg-blue-900 text-white' : ''"
+            @click="nodeInfo.operation = 'Add'"
+            :class="nodeInfo.operation == 'Add' ? 'bg-blue-900 text-white' : ''"
           >
             <BIconPlusSquare />
           </span>
 
           <span
-            value="Subtract"
             class="hover:bg-blue-400 hover:text-white p-1 rounded-lg"
-            @click="selectOperation = 'Subtract'"
+            @click="nodeInfo.operation = 'Subtract'"
             :class="
-              selectOperation == 'Subtract' ? 'bg-blue-900 text-white' : ''
+              nodeInfo.operation == 'Subtract' ? 'bg-blue-900 text-white' : ''
             "
           >
             <BIconDashSquare />
           </span>
 
           <span
-            value="Multiply"
             class="hover:bg-blue-400 hover:text-white p-1 rounded-lg"
-            @click="selectOperation = 'Multiply'"
+            @click="nodeInfo.operation = 'Multiply'"
             :class="
-              selectOperation == 'Multiply' ? 'bg-blue-900 text-white' : ''
+              nodeInfo.operation == 'Multiply' ? 'bg-blue-900 text-white' : ''
             "
           >
             <BIconXSquare />
           </span>
 
           <span
-            value="Divide"
             class="hover:bg-blue-400 hover:text-white p-1 rounded-lg"
-            @click="selectOperation = 'Divide'"
-            :class="selectOperation == 'Divide' ? 'bg-blue-900 text-white' : ''"
+            @click="nodeInfo.operation = 'Divide'"
+            :class="
+              nodeInfo.operation == 'Divide' ? 'bg-blue-900 text-white' : ''
+            "
           >
             <BIconSlashSquare />
           </span>
@@ -55,7 +53,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { reactive, watch } from "vue";
 import {
   BIconCalculator,
   BIconPlusSquare,
@@ -66,7 +64,21 @@ import {
 
 import BoxNode from "./BoxNode.vue";
 
-const selectOperation = ref("");
+const nodeInfo = reactive({
+  type: "MathOperation",
+  nodeId: "",
+  operation: "",
+  value1: 0,
+  value2: 0,
+});
+
+const addNodeId = (event) => {
+  nodeInfo.nodeId = event;
+};
+
+watch(nodeInfo, (val) => {
+  console.log(val);
+});
 </script>
 
 <style></style>

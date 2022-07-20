@@ -1,5 +1,5 @@
 <template>
-  <BoxNode title="Logic Operation">
+  <BoxNode title="Logic Operation" @onNodeId="addNodeId($event)">
     <template #icon>
       <BIconShuffle class="title-color font-bold text-lg" />
     </template>
@@ -11,40 +11,48 @@
         </div>
 
         <div
-          class="flex justify-between items-center px-3 my-3 mr-8 text-2xl text-blue-900"
+          class="flex justify-between items-center px-1 my-3 mr-8 text-2xl text-blue-900"
         >
           <span
             value="Add"
-            class="hover:bg-blue-400 hover:text-white rounded-lg w-7 font-bold border-2 border-blue-900"
-            @click="selectLogic = 'Less'"
-            :class="selectLogic == 'Less' ? 'bg-blue-900 text-white' : ''"
+            class="hover:bg-blue-400 hover:text-white rounded-lg w-8 h-8 font-bold border-2 border-blue-900"
+            @click="nodeInfo.operation = 'Less'"
+            :class="
+              nodeInfo.operation == 'Less' ? 'bg-blue-900 text-white' : ''
+            "
           >
             &lt;
           </span>
 
           <span
             value="Subtract"
-            class="hover:bg-blue-400 hover:text-white rounded-lg w-7 font-bold border-2 border-blue-900"
-            @click="selectLogic = 'Greater'"
-            :class="selectLogic == 'Greater' ? 'bg-blue-900 text-white' : ''"
+            class="hover:bg-blue-400 hover:text-white rounded-lg w-8 h-8 after:first:font-bold border-2 border-blue-900"
+            @click="nodeInfo.operation = 'Greater'"
+            :class="
+              nodeInfo.operation == 'Greater' ? 'bg-blue-900 text-white' : ''
+            "
           >
             &gt;
           </span>
 
           <span
             value="Multiply"
-            class="hover:bg-blue-400 hover:text-white rounded-lg w-7 font-bold border-2 border-blue-900"
-            @click="selectLogic = 'Different'"
-            :class="selectLogic == 'Different' ? 'bg-blue-900 text-white' : ''"
+            class="hover:bg-blue-400 hover:text-white rounded-lg w-8 h-8 font-bold border-2 border-blue-900"
+            @click="nodeInfo.operation = 'Different'"
+            :class="
+              nodeInfo.operation == 'Different' ? 'bg-blue-900 text-white' : ''
+            "
           >
             !=
           </span>
 
           <span
             value="Divide"
-            class="hover:bg-blue-400 hover:text-white rounded-lg w-7 font-bold border-2 border-blue-900"
-            @click="selectLogic = 'Equal'"
-            :class="selectLogic == 'Equal' ? 'bg-blue-900 text-white' : ''"
+            class="hover:bg-blue-400 hover:text-white rounded-lg w-8 h-8 font-bold border-2 border-blue-900"
+            @click="nodeInfo.operation = 'Equal'"
+            :class="
+              nodeInfo.operation == 'Equal' ? 'bg-blue-900 text-white' : ''
+            "
           >
             =
           </span>
@@ -59,9 +67,25 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { reactive, watch } from "vue";
 import { BIconShuffle } from "bootstrap-icons-vue";
 import BoxNode from "./BoxNode.vue";
 
-const selectLogic = ref("");
+const nodeInfo = reactive({
+  type: "LogicOperation",
+  nodeId: "",
+  operation: "",
+  value1: 0,
+  value2: 0,
+  trueCondition: {},
+  falseCondition: {},
+});
+
+const addNodeId = (event) => {
+  nodeInfo.nodeId = event;
+};
+
+watch(nodeInfo, (val) => {
+  console.log(val);
+});
 </script>

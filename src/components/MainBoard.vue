@@ -14,6 +14,7 @@ import BoxAssign from "./boxes/BoxAssign.vue";
 import BoxMath from "./boxes/BoxMath.vue";
 import BoxLogic from "./boxes/BoxLogic.vue";
 import BoxCicle from "./boxes/BoxCicle.vue";
+import BoxPrint from "./boxes/BoxPrint.vue";
 
 const drawFlow = shallowRef({});
 const vue = { version: 3, h, render };
@@ -41,8 +42,13 @@ const boxes = readonly([
   },
   {
     name: "cicle",
-    input: 2,
+    in: 2,
     out: 1,
+  },
+  {
+    name: "print",
+    in: 1,
+    out: 0,
   },
 ]);
 
@@ -60,6 +66,7 @@ onMounted(() => {
   drawFlow.value.registerNode("math", BoxMath, {}, {});
   drawFlow.value.registerNode("logic", BoxLogic, {}, {});
   drawFlow.value.registerNode("cicle", BoxCicle, {}, {});
+  drawFlow.value.registerNode("print", BoxPrint, {}, {});
 });
 
 /**
@@ -81,7 +88,6 @@ const renderNode = (ev) => {
     node.name,
     "vue"
   );
-  
 };
 
 const allowDrop = (ev) => {
