@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { h, render, onMounted, readonly, shallowRef } from "vue";
+import { h, render, onMounted, readonly, shallowRef, watch } from "vue";
 import Drawflow from "drawflow";
 import BoxVariable from "./boxes/BoxVariable.vue";
 import BoxAssign from "./boxes/BoxAssign.vue";
@@ -67,6 +67,8 @@ onMounted(() => {
   drawFlow.value.registerNode("logic", BoxLogic, {}, {});
   drawFlow.value.registerNode("cicle", BoxCicle, {}, {});
   drawFlow.value.registerNode("print", BoxPrint, {}, {});
+
+  console.log(drawFlow.value);
 });
 
 /**
@@ -93,6 +95,10 @@ const renderNode = (ev) => {
 const allowDrop = (ev) => {
   ev.preventDefault();
 };
+
+watch(drawFlow, (newValue) => {
+  console.log(newValue);
+});
 
 /**
  * Get the position of the node to be dropped

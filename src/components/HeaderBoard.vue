@@ -6,6 +6,7 @@
       <div class="w-full flex justify-between px-20 font-bold self-center">
         <button
           class="px-5 py-1 rounded-full border-2 hover:shadow-lg hover:shadow-cyan-600/50"
+          @click="printState"
         >
           <font-icon icon="fa-solid fa-floppy-disk" />
           Save
@@ -33,6 +34,13 @@
     </nav>
   </header>
 </template>
+
+<script setup>
+import useProgramStore from "../store/program.js";
+const programStore = useProgramStore();
+
+const printState = () => console.log(programStore.nodesProgram);
+</script>
 
 <style>
 .bg-color {

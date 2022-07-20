@@ -1,4 +1,6 @@
 import { createApp } from "vue";
+import { createPinia } from "pinia";
+
 import App from "./App.vue";
 import "./index.css";
 
@@ -12,5 +14,8 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 library.add(far, fas, fab);
 
 const app = createApp(App);
+const pinia = createPinia();
+
+app.use(pinia);
 app.component("font-icon", FontAwesomeIcon);
 app.mount("#app");

@@ -15,6 +15,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.1",
     "bootstrap-icons-vue": "^1.8.1",
     "drawflow": "^0.0.59",
+    "pinia": "^2.0.16",
     "vue": "^3.2.37"
   },
   "devDependencies": {
