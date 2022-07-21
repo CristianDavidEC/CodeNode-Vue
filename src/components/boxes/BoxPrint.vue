@@ -41,8 +41,4 @@ programStore.addNodeProgram(nodeInfo);
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;
 };
-
-watch(nodeInfo, (val) => {
-  console.log(val);
-});
 </script>
