@@ -7,8 +7,16 @@
 </template>
 
 <script setup>
-import { h, render, onMounted, readonly, shallowRef, watch } from "vue";
+import {
+  h,
+  render,
+  onMounted,
+  readonly,
+  shallowRef,
+  getCurrentInstance,
+} from "vue";
 import Drawflow from "drawflow";
+import DfControl from "./DrawFlowControll.vue";
 import BoxVariable from "./boxes/BoxVariable.vue";
 import BoxAssign from "./boxes/BoxAssign.vue";
 import BoxMath from "./boxes/BoxMath.vue";
@@ -18,7 +26,8 @@ import BoxPrint from "./boxes/BoxPrint.vue";
 
 const drawFlow = shallowRef({});
 const vue = { version: 3, h, render };
-
+const internalInstance = getCurrentInstance();
+internalInstance.appContext.app._context.config.globalProperties.$df = drawFlow;
 const boxes = readonly([
   {
     name: "variable",
@@ -57,7 +66,11 @@ const boxes = readonly([
  */
 onMounted(() => {
   const idContainer = document.getElementById("drawflow");
-  drawFlow.value = new Drawflow(idContainer, vue);
+  drawFlow.value = new Drawflow(
+    idContainer,
+    vue,
+    internalInstance.appContext.app._context
+  );
   drawFlow.value.reroute = true;
   drawFlow.value.start();
 
@@ -67,7 +80,19 @@ onMounted(() => {
   drawFlow.value.registerNode("logic", BoxLogic, {}, {});
   drawFlow.value.registerNode("cicle", BoxCicle, {}, {});
   drawFlow.value.registerNode("print", BoxPrint, {}, {});
+  drawFlow.value.registerNode("DfControl", DfControl, {}, {});
 
+  drawFlow.value.addNode(
+    "DfControl",
+    0,
+    0,
+    0,
+    0,
+    "dfcontrol",
+    {},
+    "DfControl",
+    "vue"
+  );
   console.log(drawFlow.value);
 });
 
@@ -96,10 +121,9 @@ const allowDrop = (ev) => {
   ev.preventDefault();
 };
 
-watch(drawFlow, (newValue) => {
+/*watch(drawFlow, (newValue) => {
   console.log(newValue);
-});
-
+});*/
 /**
  * Get the position of the node to be dropped
  */

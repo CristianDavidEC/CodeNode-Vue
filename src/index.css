@@ -95,6 +95,13 @@ body {
   display: block;
 }
 
+.drawflow .dfcontrol {
+  width: 0px !important;
+  min-height: 0px !important;
+  border: 0px;
+  box-shadow: none;
+}
+
 .drawflow-delete {
   align-items: center;
   display: flex;

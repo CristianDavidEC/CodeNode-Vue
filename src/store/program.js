@@ -9,5 +9,11 @@ export default defineStore("program", {
     addNodeProgram(node) {
       this.nodesProgram.push(node);
     },
+
+    removeNodeProgram(id) {
+      this.nodesProgram = this.nodesProgram.filter(
+        (node) => node.nodeId !== id
+      );
+    },
   },
 });

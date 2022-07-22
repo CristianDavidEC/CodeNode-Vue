@@ -32,7 +32,7 @@
 
 <script setup>
 import BoxNode from "./BoxNode.vue";
-import useProgramStore from "@/store/program";
+import useProgramStore from "../../store/program";
 import { BIconBoxArrowInRight } from "bootstrap-icons-vue";
 import { reactive, watch } from "vue";
 
