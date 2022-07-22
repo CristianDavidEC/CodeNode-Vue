@@ -27,6 +27,7 @@ const nodeInfo = reactive({
   nodeRefInput1: null,
   nodeRefInput2: null,
   cicle: [],
+  parentNode: null,
 });
 
 programStore.addNodeProgram(nodeInfo);

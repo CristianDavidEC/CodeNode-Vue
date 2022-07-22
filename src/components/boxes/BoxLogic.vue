@@ -82,6 +82,7 @@ const nodeInfo = reactive({
   value: null,
   trueCondition: [],
   falseCondition: [],
+  parentNode: null,
 });
 
 programStore.addNodeProgram(nodeInfo);
