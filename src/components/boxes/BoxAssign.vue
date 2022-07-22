@@ -24,6 +24,7 @@
         id="Value"
         name="Value"
         class="border-2 border-blue-200 rounded-lg px-2 py-1 text-sm text-blue-900 focus:border-blue-400 focus:outline-none"
+        v-model="nodeInfo.value"
         disabled
       />
     </template>
@@ -41,7 +42,8 @@ const nodeInfo = reactive({
   type: "Assign",
   nodeId: "",
   identifier: "",
-  value: 0,
+  nodeRefInput1: null,
+  value: null,
 });
 
 programStore.addNodeProgram(nodeInfo);
@@ -49,6 +51,18 @@ programStore.addNodeProgram(nodeInfo);
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;
 };
+
+watch(
+  () => nodeInfo.nodeRefInput1,
+  (value) => {
+    if (value) {
+      const nodeReference = programStore.getNode(value);
+      nodeInfo.value = nodeReference.value;
+    } else {
+      nodeInfo.value = null;
+    }
+  }
+);
 </script>
 
 <style></style>

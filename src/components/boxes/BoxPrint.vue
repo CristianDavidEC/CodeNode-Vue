@@ -17,6 +17,8 @@
           v-model="nodeInfo.message"
         />
         <h1 class="title-color font-semibold mt-2">Value to Print</h1>
+
+        <h1 class="title-color font-semibold mt-2">{{ nodeInfo.value }}</h1>
       </div>
     </template>
   </BoxNode>
@@ -34,7 +36,8 @@ const nodeInfo = reactive({
   type: "Print",
   nodeId: "",
   message: "",
-  valuePrint: "",
+  nodeRefInput1: null,
+  value: null,
 });
 programStore.addNodeProgram(nodeInfo);
 

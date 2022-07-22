@@ -77,10 +77,11 @@ const nodeInfo = reactive({
   type: "LogicOperation",
   nodeId: "",
   operation: "",
-  value1: 0,
-  value2: 0,
-  trueCondition: {},
-  falseCondition: {},
+  nodeRefInput1: null,
+  nodeRefInput2: null,
+  value: null,
+  trueCondition: [],
+  falseCondition: [],
 });
 
 programStore.addNodeProgram(nodeInfo);

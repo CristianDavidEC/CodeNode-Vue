@@ -42,7 +42,8 @@ const nodeInfo = reactive({
   type: "Variable",
   nodeId: "",
   identifier: "",
-  value: 0,
+  nodeRefInput1: null,
+  value: null,
 });
 
 programStore.addNodeProgram(nodeInfo);

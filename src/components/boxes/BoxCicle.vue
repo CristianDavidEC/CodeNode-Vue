@@ -24,9 +24,9 @@ const programStore = useProgramStore();
 const nodeInfo = reactive({
   type: "Cicle",
   nodeId: "",
-  from: 0,
-  to: 0,
-  cicle: {},
+  nodeRefInput1: null,
+  nodeRefInput2: null,
+  cicle: [],
 });
 
 programStore.addNodeProgram(nodeInfo);

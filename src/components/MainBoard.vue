@@ -31,7 +31,7 @@ internalInstance.appContext.app._context.config.globalProperties.$df = drawFlow;
 const boxes = readonly([
   {
     name: "variable",
-    in: 0,
+    in: 1,
     out: 1,
   },
   {
@@ -93,7 +93,6 @@ onMounted(() => {
     "DfControl",
     "vue"
   );
-  console.log(drawFlow.value);
 });
 
 /**
@@ -121,9 +120,6 @@ const allowDrop = (ev) => {
   ev.preventDefault();
 };
 
-/*watch(drawFlow, (newValue) => {
-  console.log(newValue);
-});*/
 /**
  * Get the position of the node to be dropped
  */

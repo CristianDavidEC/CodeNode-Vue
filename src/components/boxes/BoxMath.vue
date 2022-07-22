@@ -70,8 +70,9 @@ const nodeInfo = reactive({
   type: "MathOperation",
   nodeId: "",
   operation: "",
-  value1: 0,
-  value2: 0,
+  nodeRefInput1: null,
+  nodeRefInput2: null,
+  value: null,
 });
 programStore.addNodeProgram(nodeInfo);
 

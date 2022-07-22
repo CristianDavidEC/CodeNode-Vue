@@ -5,6 +5,12 @@ export default defineStore("program", {
     nodesProgram: [],
   }),
 
+  getters: {
+    getNode: (state) => (id) => {
+      return state.nodesProgram.find((node) => node.nodeId === id);
+    },
+  },
+
   actions: {
     addNodeProgram(node) {
       this.nodesProgram.push(node);
