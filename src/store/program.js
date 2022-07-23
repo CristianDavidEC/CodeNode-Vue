@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 
 export default defineStore("program", {
   state: () => ({
+    idProgram: "00001",
+    nameProgram: "ProgramaPatitoFrito",
     nodesProgram: [],
   }),
 

@@ -3,7 +3,7 @@
     <nav
       class="flex items-center justify-between bg-color shadow-blue-900/30 shadow-lg text-white py-2"
     >
-      <div class="w-full flex justify-between px-20 font-bold self-center">
+      <div class="w-full flex justify-between px-32 font-bold self-center">
         <button
           class="px-5 py-1 rounded-full border-2 hover:shadow-lg hover:shadow-cyan-600/50"
           @click="printState"
@@ -26,9 +26,8 @@
         <button
           class="px-5 py-1 rounded-full border-2 hover:shadow-lg hover:shadow-cyan-600/50"
         >
-          <font-icon icon="fa-solid fa-lightbulb" />
-          Ligh/Dark
-          <font-icon icon="fa-solid fa-moon" />
+          <font-icon icon="fa-solid fa-circle-question" />
+          Help
         </button>
       </div>
     </nav>

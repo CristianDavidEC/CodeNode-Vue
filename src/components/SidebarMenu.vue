@@ -1,6 +1,6 @@
 <template>
   <aside class="w-56 border-r h-screen bg-color" aria-label="Sidebar">
-    <div class="py-4 text-white">
+    <div class="py-4 text-white min-h-screen relative">
       <ul class="space-y-2 overflow-y-auto">
         <div class="flex border-b mx-3">
           <font-icon icon="fa-solid fa-laptop-code" size="2x" class="mr-3" />
@@ -65,12 +65,15 @@
           <font-icon icon="fa-solid fa-print" />
           Print
         </li>
+        <FooterInfo />
       </ul>
     </div>
   </aside>
 </template>
 
 <script setup>
+import FooterInfo from "./FooterInfo.vue";
+
 /**
  * When dragstart event is fired, set the data of the event
  * to identify the component to be dragged
