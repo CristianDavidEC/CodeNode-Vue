@@ -1,10 +1,7 @@
 <template>
-  <MainVue />
+  <router-view></router-view>
 </template>
 
-<script setup>
-import Board from "./views/Board.vue";
-import MainVue from "./views/Main.vue";
-</script>
+<script setup></script>
 
 <style></style>

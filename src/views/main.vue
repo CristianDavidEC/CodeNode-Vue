@@ -12,7 +12,7 @@
           <p class="text-xl font-medium mt-2">Select a Program or Create One</p>
         </h1>
       </header>
-      <main class="flex flex-wrap justify-items-center p-5">
+      <main class="grid grid-cols-4 px-6 place-items-center">
         <CardCreateProgram />
         <CardProgram v-for="index in 5" :key="index" />
       </main>

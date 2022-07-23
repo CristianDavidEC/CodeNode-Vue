@@ -14,12 +14,14 @@
       elit.
     </p>
     <div class="flex justify-between">
-      <button
-        class="transition duration-300 p-1 rounded-lg font-bold border-2 bg-color hover:bg-blue-900"
-      >
-        <font-icon icon="fa-solid fa-laptop-code" />
-        Go To Board
-      </button>
+      <router-link to="/board">
+        <button
+          class="transition duration-300 p-1 rounded-lg font-bold border-2 bg-color hover:bg-blue-900"
+        >
+          <font-icon icon="fa-solid fa-laptop-code" />
+          Go To Board
+        </button>
+      </router-link>
 
       <p class="font-bold p-1">
         <font-icon icon="fa-solid fa-sitemap" />

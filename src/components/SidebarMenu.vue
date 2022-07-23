@@ -2,12 +2,14 @@
   <aside class="w-56 border-r h-screen bg-color" aria-label="Sidebar">
     <div class="py-4 text-white min-h-screen relative">
       <ul class="space-y-2 overflow-y-auto">
-        <div class="flex border-b mx-3">
-          <font-icon icon="fa-solid fa-laptop-code" size="2x" class="mr-3" />
-          <h1 class="font-bold text-2xl tracking-tight text-white mb-1">
-            Code:Node
-          </h1>
-        </div>
+        <router-link to="/">
+          <div class="flex border-b mx-3">
+            <font-icon icon="fa-solid fa-laptop-code" size="2x" class="mr-3" />
+            <h1 class="font-bold text-2xl tracking-tight text-white mb-1">
+              Code:Node
+            </h1>
+          </div>
+        </router-link>
         <li
           class="py-3 border-b mx-3 px-4"
           draggable="true"

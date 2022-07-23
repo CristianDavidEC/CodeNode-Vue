@@ -29,17 +29,19 @@
           id="Identify"
           name="Identify"
           class="border-2 border-sky-800 rounded-lg w-full px-2 py-1 text-sm text-blue-900 focus:border-sky-600 focus:outline-none"
-          placeholder="Name of the Program"
+          placeholder="A Short Description of the Program"
           maxlength="70"
         />
       </label>
 
-      <button
-        class="transition duration-300 p-1 rounded-lg font-bold border-2 my-2 mr-10 bg-color hover:bg-blue-900"
-      >
-        <font-icon icon="fa-solid fa-terminal" />
-        Create Program
-      </button>
+      <router-link to="/board">
+        <button
+          class="transition duration-300 p-1 rounded-lg font-bold border-2 my-2 mr-10 bg-color hover:bg-blue-900"
+        >
+          <font-icon icon="fa-solid fa-terminal" />
+          Create Program
+        </button>
+      </router-link>
     </div>
   </div>
 </template>
