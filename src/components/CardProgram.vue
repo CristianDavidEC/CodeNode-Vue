@@ -1,36 +1,43 @@
 <template>
   <div
-    class="p-6 w-64 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-4"
+    class="p-4 w-60 color-card rounded-lg border border-gray-200 m-4 box-shadow"
   >
-    <a href="#">
-      <h5
-        class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-      >
-        Noteworthy technology acquisitions 2021
-      </h5>
-    </a>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-      Here are the biggest enterprise technology acquisitions of 2021 so far, in
-      reverse chronological order.
-    </p>
-    <a
-      href="#"
-      class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    <h5
+      class="mb-4 text-lg font-bold tracking-tight text-gray-900 dark:text-white"
     >
-      Read more
-      <svg
-        aria-hidden="true"
-        class="ml-2 -mr-1 w-4 h-4"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
+      <font-icon icon="fa-solid fa-code" />
+      ProgramaPatito
+    </h5>
+    <small class="font-bold"># 00001</small>
+    <p class="my-2 h-24 font-normal text-gray-700 dark:text-gray-300">
+      <b>Description: </b> Lorem ipsum dolor sit, amet consectetur adipisicing
+      elit.
+    </p>
+    <div class="flex justify-between">
+      <button
+        class="transition duration-300 p-1 rounded-lg font-bold border-2 bg-color hover:bg-blue-900"
       >
-        <path
-          fill-rule="evenodd"
-          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-          clip-rule="evenodd"
-        ></path>
-      </svg>
-    </a>
+        <font-icon icon="fa-solid fa-laptop-code" />
+        Go To Board
+      </button>
+
+      <p class="font-bold p-1">
+        <font-icon icon="fa-solid fa-sitemap" />
+        0
+      </p>
+    </div>
   </div>
 </template>
+
+<script></script>
+
+<style>
+.color-card {
+  background-color: #100b36;
+}
+.box-shadow {
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(99, 167, 226, 0.9);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(105, 165, 221, 0.9);
+  box-shadow: 0px 0px 5px 1px rgba(98, 131, 216, 0.9);
+}
+</style>

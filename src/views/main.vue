@@ -13,19 +13,15 @@
         </h1>
       </header>
       <main class="flex flex-wrap justify-items-center p-5">
-        <CardProgram />
-        <CardProgram />
-        <CardProgram />
-        <CardProgram />
-        <CardProgram />
-        <CardProgram />
-        <CardProgram />
+        <CardCreateProgram />
+        <CardProgram v-for="index in 5" :key="index" />
       </main>
     </div>
   </div>
 </template>
 <script setup>
 import CardProgram from "../components/CardProgram.vue";
+import CardCreateProgram from "../components/CardCreateProgram.vue";
 </script>
 <style>
 .contend {
@@ -38,5 +34,27 @@ import CardProgram from "../components/CardProgram.vue";
 }
 .max-h {
   max-height: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #205bd1a4;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(43, 120, 245);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(14, 78, 183);
 }
 </style>

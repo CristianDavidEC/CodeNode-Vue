@@ -6,6 +6,7 @@ export default defineStore("program", {
     nameProgram: "ProgramaPatitoFrito",
     descriptionProgram: "ProgramaPatitoFrito",
     nodesProgram: [],
+    drawflowProgram: [],
   }),
 
   getters: {
