@@ -17,7 +17,6 @@ dfcontrol.on("nodeRemoved", function (id) {
 /**Watch the connection create for create the conecction into store program */
 dfcontrol.on("connectionCreated", function (connectionNode) {
   const { type } = programStore.getNode(connectionNode.output_id);
-  console.log(type);
   if (type == "LogicOperation" || type == "Cicle") {
     createParentConection(connectionNode);
   } else {
@@ -25,12 +24,14 @@ dfcontrol.on("connectionCreated", function (connectionNode) {
   }
 });
 
+/**Watch the connection revomed for create the conecction into store program */
 dfcontrol.on("connectionRemoved", function (connectionNode) {
-  const node = programStore.getNode(connectionNode.input_id);
-  if (connectionNode.input_class == "input_1") {
-    node.nodeRefInput1 = null;
+  const { type } = programStore.getNode(connectionNode.output_id);
+  if (type == "LogicOperation" || type == "Cicle") {
+    removeParentConection(connectionNode);
   } else {
-    node.nodeRefInput2 = null;
+    console.log("remove Conection");
+    removeConecction(connectionNode);
   }
 });
 
@@ -56,6 +57,37 @@ const createParentConection = (connectionNode) => {
       nodeOutput.trueCondition.push(connectionNode.input_id);
     } else {
       nodeOutput.falseCondition.push(connectionNode.input_id);
+    }
+  }
+};
+
+const removeConecction = (connectionNode) => {
+  const node = programStore.getNode(connectionNode.input_id);
+  if (connectionNode.input_class == "input_1") {
+    node.nodeRefInput1 = null;
+  } else {
+    node.nodeRefInput2 = null;
+  }
+};
+
+const removeParentConection = (connectionNode) => {
+  const nodeOutput = programStore.getNode(connectionNode.output_id);
+  const nodeInput = programStore.getNode(connectionNode.input_id);
+  nodeInput.parentNode = null;
+
+  if (nodeOutput.type == "Cicle") {
+    nodeOutput.cicle = nodeOutput.cicle.filter(
+      (node) => node !== connectionNode.input_id
+    );
+  } else {
+    if (connectionNode.output_class == "output_1") {
+      nodeOutput.trueCondition = nodeOutput.trueCondition.filter(
+        (node) => node !== connectionNode.input_id
+      );
+    } else {
+      nodeOutput.falseCondition = nodeOutput.falseCondition.filter(
+        (node) => node !== connectionNode.input_id
+      );
     }
   }
 };
