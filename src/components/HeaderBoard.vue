@@ -19,6 +19,7 @@
         </button>
         <button
           class="px-5 py-1 rounded-full border-2 hover:shadow-lg hover:shadow-cyan-600/50"
+          @click="toPython"
         >
           <font-icon icon="fa-brands fa-python" />
           To Python
@@ -36,9 +37,12 @@
 
 <script setup>
 import useProgramStore from "../store/program.js";
+import nodesToPython from "../functions/toPython.js";
 const programStore = useProgramStore();
 
 const printState = () => console.log(programStore.nodesProgram);
+
+const toPython = () => nodesToPython(programStore.nodesProgram);
 </script>
 
 <style>

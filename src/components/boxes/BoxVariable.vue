@@ -45,12 +45,24 @@ const nodeInfo = reactive({
   nodeRefInput1: null,
   value: null,
   parentNode: null,
+  pytonCode: null,
 });
 
 programStore.addNodeProgram(nodeInfo);
 
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;
+};
+
+watch(nodeInfo, (nodeChanged) => {
+  toPytonCode(nodeChanged);
+});
+
+const toPytonCode = (node) => {
+  const { identifier, value } = node;
+  node.pytonCode = `
+  ${identifier} = ${value}
+  `;
 };
 </script>
 

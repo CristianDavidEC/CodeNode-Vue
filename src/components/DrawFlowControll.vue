@@ -30,7 +30,6 @@ dfcontrol.on("connectionRemoved", function (connectionNode) {
   if (type == "LogicOperation" || type == "Cicle") {
     removeParentConection(connectionNode);
   } else {
-    console.log("remove Conection");
     removeConecction(connectionNode);
   }
 });

@@ -55,9 +55,9 @@ const addNodeId = (event) => {
 
 watch(
   () => nodeInfo.nodeRefInput1,
-  (value) => {
-    if (value) {
-      const nodeReference = programStore.getNode(value);
+  (idNode) => {
+    if (idNode) {
+      const nodeReference = programStore.getNode(idNode);
       nodeInfo.value = nodeReference.value;
     } else {
       nodeInfo.value = null;

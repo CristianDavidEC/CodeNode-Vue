@@ -10,38 +10,32 @@
         <div class="flex justify-between px-5 text-2xl my-3 text-blue-900">
           <span
             class="hover:bg-blue-400 hover:text-white p-1 rounded-lg"
-            @click="nodeInfo.operation = 'Add'"
-            :class="nodeInfo.operation == 'Add' ? 'bg-blue-900 text-white' : ''"
+            @click="nodeInfo.operation = '+'"
+            :class="nodeInfo.operation == '+' ? 'bg-blue-900 text-white' : ''"
           >
             <BIconPlusSquare />
           </span>
 
           <span
             class="hover:bg-blue-400 hover:text-white p-1 rounded-lg"
-            @click="nodeInfo.operation = 'Subtract'"
-            :class="
-              nodeInfo.operation == 'Subtract' ? 'bg-blue-900 text-white' : ''
-            "
+            @click="nodeInfo.operation = '-'"
+            :class="nodeInfo.operation == '-' ? 'bg-blue-900 text-white' : ''"
           >
             <BIconDashSquare />
           </span>
 
           <span
             class="hover:bg-blue-400 hover:text-white p-1 rounded-lg"
-            @click="nodeInfo.operation = 'Multiply'"
-            :class="
-              nodeInfo.operation == 'Multiply' ? 'bg-blue-900 text-white' : ''
-            "
+            @click="nodeInfo.operation = '*'"
+            :class="nodeInfo.operation == '*' ? 'bg-blue-900 text-white' : ''"
           >
             <BIconXSquare />
           </span>
 
           <span
             class="hover:bg-blue-400 hover:text-white p-1 rounded-lg"
-            @click="nodeInfo.operation = 'Divide'"
-            :class="
-              nodeInfo.operation == 'Divide' ? 'bg-blue-900 text-white' : ''
-            "
+            @click="nodeInfo.operation = '/'"
+            :class="nodeInfo.operation == '/' ? 'bg-blue-900 text-white' : ''"
           >
             <BIconSlashSquare />
           </span>
@@ -74,11 +68,28 @@ const nodeInfo = reactive({
   nodeRefInput2: null,
   value: null,
   parentNode: null,
+  pytonCode: null,
 });
+
 programStore.addNodeProgram(nodeInfo);
 
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;
+};
+
+watch(nodeInfo, (nodeChanged) => {
+  toPytonCode(nodeChanged);
+});
+
+const toPytonCode = (node) => {
+  const { nodeRefInput1, nodeRefInput2, operation } = node;
+  if (nodeRefInput1 && nodeRefInput2) {
+    const node1 = programStore.getNode(nodeRefInput1);
+    const node2 = programStore.getNode(nodeRefInput2);
+    nodeInfo.pytonCode = `${node1.identifier} ${operation} ${node2.identifier}`;
+
+    console.log("a = " + nodeInfo.pytonCode);
+  }
 };
 </script>
 
