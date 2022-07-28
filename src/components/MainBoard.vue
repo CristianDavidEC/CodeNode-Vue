@@ -1,6 +1,6 @@
 <template>
   <div id="drawflow" @drop="renderNode($event)" @dragover="allowDrop($event)">
-    <Console />
+    <Terminal />
   </div>
 </template>
 
@@ -21,7 +21,7 @@ import BoxMath from "./boxes/BoxMath.vue";
 import BoxLogic from "./boxes/BoxLogic.vue";
 import BoxCicle from "./boxes/BoxCicle.vue";
 import BoxPrint from "./boxes/BoxPrint.vue";
-import Console from "./Console.vue";
+import Terminal from "./Terminal.vue";
 
 const drawFlow = shallowRef({});
 const vue = { version: 3, h, render };
@@ -72,26 +72,7 @@ onMounted(() => {
   );
   drawFlow.value.reroute = true;
   drawFlow.value.start();
-
-  drawFlow.value.registerNode("variable", BoxVariable, {}, {});
-  drawFlow.value.registerNode("assign", BoxAssign, {}, {});
-  drawFlow.value.registerNode("math", BoxMath, {}, {});
-  drawFlow.value.registerNode("logic", BoxLogic, {}, {});
-  drawFlow.value.registerNode("cicle", BoxCicle, {}, {});
-  drawFlow.value.registerNode("print", BoxPrint, {}, {});
-  drawFlow.value.registerNode("DfControl", DfControl, {}, {});
-
-  drawFlow.value.addNode(
-    "DfControl",
-    0,
-    0,
-    0,
-    0,
-    "dfcontrol",
-    {},
-    "DfControl",
-    "vue"
-  );
+  registerNodes();
 });
 
 /**
@@ -117,6 +98,31 @@ const renderNode = (ev) => {
 
 const allowDrop = (ev) => {
   ev.preventDefault();
+};
+
+/**
+ * Register the node components to use in drawflow
+ */
+const registerNodes = () => {
+  drawFlow.value.registerNode("variable", BoxVariable, {}, {});
+  drawFlow.value.registerNode("assign", BoxAssign, {}, {});
+  drawFlow.value.registerNode("math", BoxMath, {}, {});
+  drawFlow.value.registerNode("logic", BoxLogic, {}, {});
+  drawFlow.value.registerNode("cicle", BoxCicle, {}, {});
+  drawFlow.value.registerNode("print", BoxPrint, {}, {});
+  drawFlow.value.registerNode("DfControl", DfControl, {}, {});
+
+  drawFlow.value.addNode(
+    "DfControl",
+    0,
+    0,
+    0,
+    0,
+    "dfcontrol",
+    {},
+    "DfControl",
+    "vue"
+  );
 };
 
 /**

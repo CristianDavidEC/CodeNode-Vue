@@ -102,7 +102,6 @@ const toPythonCode = (node) => {
 };
 
 const calculateValue = (node) => {
-  console.log(node.nodeRefInput1, node.nodeRefInput2);
   if (node.nodeRefInput1 && node.nodeRefInput2) {
     operate(node);
   } else {

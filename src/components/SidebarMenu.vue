@@ -85,4 +85,15 @@ const drag = (ev) => {
 };
 </script>
 
-<style></style>
+<style scoped>
+li {
+  cursor: move;
+  transition: background-color 0.3s ease-in-out;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+li:hover {
+  background-color: rgb(38, 38, 86);
+}
+</style>
