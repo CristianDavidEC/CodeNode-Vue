@@ -1,21 +1,16 @@
-const nodesToPython = (nodesProgram) => {
-  for (const node of nodesProgram) {
-    typeNode(node);
-  }
-};
+import useProgramStore from "../store/program.js";
+const programStore = useProgramStore();
 
-function typeNode(node) {
-  switch (node.type) {
-    case "Variable":
-      console.log(node.type);
-      break;
-    case "Assign":
-      console.log(node.type);
-      break;
-    case "MathOperation":
-      console.log(node.type);
-      break;
+const nodesToPython = (nodesProgram) => {
+  let code = ``;
+
+  for (const node of nodesProgram) {
+    const { parentNode, pythonCode } = node;
+    if (!parentNode) {
+      code += `${pythonCode} \n`;
+    }
   }
-}
+  programStore.addPythonCode(code);
+};
 
 export default nodesToPython;

@@ -42,7 +42,7 @@ const nodeInfo = reactive({
   type: "Variable",
   nodeId: "",
   identifier: "",
-  value: null,
+  value: 0,
   parentNode: null,
   pythonCode: null,
 });
@@ -58,10 +58,9 @@ watch(nodeInfo, (nodeChanged) => {
 });
 
 const toPythonCode = (node) => {
-  const { identifier, value } = node;
-  value && identifier
-    ? (node.pythonCode = `${identifier} = ${value}`)
-    : (node.pythonCode = "");
+  node.identifier
+    ? (node.pythonCode = `${node.identifier} = ${node.value}`)
+    : (node.pythonCode = null);
 };
 </script>
 

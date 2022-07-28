@@ -88,38 +88,41 @@ watch(nodeInfo, (nodeChange) => {
 });
 
 const toPytonCode = (node) => {
-  const { nodeRefInput1, nodeRefInput2, operation, parentNode } = node;
-
-  if (nodeRefInput1 && nodeRefInput2) {
-    const nodeRef1 = programStore.getNode(nodeRefInput1);
-    const nodeRef2 = programStore.getNode(nodeRefInput2);
-    const isParent = parentNode ? "\t" : "";
-
-    node.pythonCode =
-      "if " +
-      nodeRef1.identifier +
-      " " +
-      operation +
-      " " +
-      nodeRef2.identifier +
-      ":\n" +
-      conditionCode(node.trueCondition, isParent) +
-      "\n" +
-      isParent +
-      "else:\n" +
-      conditionCode(node.falseCondition, isParent);
+  if (node.nodeRefInput1 && node.nodeRefInput2) {
+    node.pythonCode = formatCode(node);
   } else {
-    node.pythonCode = "";
+    node.pythonCode = null;
   }
-  console.log(node.pythonCode);
 };
 
 const conditionCode = (arrayChilds, isParent) => {
   let pyCode = "";
   for (const idNode of arrayChilds) {
-    const { pythonCode } = programStore.getNode(idNode);
-    pyCode += "\t" + isParent + pythonCode + "\n";
+    const nodeChild = programStore.getNode(idNode);
+    pyCode += "\t" + isParent + nodeChild.pythonCode + "\n";
   }
   return pyCode;
+};
+
+const formatCode = (node) => {
+  const nodeRef1 = programStore.getNode(node.nodeRefInput1);
+  const nodeRef2 = programStore.getNode(node.nodeRefInput2);
+  const isParent = node.parentNode ? "\t" : "";
+
+  let code =
+    "if " +
+    nodeRef1.identifier +
+    " " +
+    node.operation +
+    " " +
+    nodeRef2.identifier +
+    ":\n" +
+    conditionCode(node.trueCondition, isParent) +
+    "\n" +
+    isParent +
+    "else:\n" +
+    conditionCode(node.falseCondition, isParent);
+
+  return code;
 };
 </script>

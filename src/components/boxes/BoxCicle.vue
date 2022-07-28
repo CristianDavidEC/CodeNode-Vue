@@ -42,32 +42,35 @@ watch(nodeInfo, (nodeChange) => {
 });
 
 const toPytonCode = (node) => {
-  const { nodeRefInput1, nodeRefInput2, parentNode } = node;
-
-  if (nodeRefInput1 && nodeRefInput2) {
-    const nodeRef1 = programStore.getNode(nodeRefInput1);
-    const nodeRef2 = programStore.getNode(nodeRefInput2);
-    const isParent = parentNode ? "\t" : "";
-
-    node.pythonCode =
-      "for i in range( " +
-      nodeRef1.identifier +
-      ", " +
-      nodeRef2.identifier +
-      " + 1 ):\n" +
-      cicleCode(node.cicle, isParent);
+  if (node.nodeRefInput1 && node.nodeRefInput2) {
+    node.pythonCode = formatCode(node);
   } else {
-    node.pythonCode = "";
+    node.pythonCode = null;
   }
-  console.log(node.pythonCode);
 };
 
 const cicleCode = (arrayChilds, isParent) => {
   let pyCode = "";
   for (const idNode of arrayChilds) {
-    const { pythonCode } = programStore.getNode(idNode);
-    pyCode += "\t" + isParent + pythonCode + "\n";
+    const nodeChild = programStore.getNode(idNode);
+    pyCode += "\t" + isParent + nodeChild.pythonCode + "\n";
   }
   return pyCode;
+};
+
+const formatCode = (node) => {
+  const nodeRef1 = programStore.getNode(node.nodeRefInput1);
+  const nodeRef2 = programStore.getNode(node.nodeRefInput2);
+  const isParent = node.parentNode ? "\t" : "";
+
+  let code =
+    "for i in range( " +
+    nodeRef1.identifier +
+    ", " +
+    nodeRef2.identifier +
+    " + 1 ):\n" +
+    cicleCode(node.cicle, isParent);
+
+  return code;
 };
 </script>

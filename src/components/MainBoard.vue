@@ -1,9 +1,7 @@
 <template>
-  <div
-    id="drawflow"
-    @drop="renderNode($event)"
-    @dragover="allowDrop($event)"
-  ></div>
+  <div id="drawflow" @drop="renderNode($event)" @dragover="allowDrop($event)">
+    <Console />
+  </div>
 </template>
 
 <script setup>
@@ -23,6 +21,7 @@ import BoxMath from "./boxes/BoxMath.vue";
 import BoxLogic from "./boxes/BoxLogic.vue";
 import BoxCicle from "./boxes/BoxCicle.vue";
 import BoxPrint from "./boxes/BoxPrint.vue";
+import Console from "./Console.vue";
 
 const drawFlow = shallowRef({});
 const vue = { version: 3, h, render };
@@ -52,7 +51,7 @@ const boxes = readonly([
   {
     name: "cicle",
     in: 2,
-    out: 2,
+    out: 1,
   },
   {
     name: "print",

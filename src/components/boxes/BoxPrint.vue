@@ -68,6 +68,7 @@ const toPythonCode = (node) => {
     }
   } else {
     node.pythonCode = `print("${node.message}")`;
+    node.nodeRefInput1 = null;
   }
 };
 </script>

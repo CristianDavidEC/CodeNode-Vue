@@ -7,7 +7,7 @@
       <div class="text-center">
         <h1 class="title-color font-semibold">Value 1</h1>
 
-        <div class="flex justify-between px-5 text-2xl my-3 text-blue-900">
+        <div class="flex justify-between text-2xl my-3 text-blue-900">
           <span
             class="hover:bg-blue-400 hover:text-white p-1 rounded-lg"
             @click="nodeInfo.operation = '+'"
@@ -39,6 +39,14 @@
           >
             <BIconSlashSquare />
           </span>
+
+          <span
+            class="hover:bg-blue-400 hover:text-white p-1 rounded-lg"
+            @click="nodeInfo.operation = '%'"
+            :class="nodeInfo.operation == '%' ? 'bg-blue-900 text-white' : ''"
+          >
+            <BIconPercent />
+          </span>
         </div>
         <h1 class="title-color font-semibold">Value 2</h1>
       </div>
@@ -55,6 +63,7 @@ import {
   BIconDashSquare,
   BIconXSquare,
   BIconSlashSquare,
+  BIconPercent,
 } from "bootstrap-icons-vue";
 
 import BoxNode from "./BoxNode.vue";
@@ -83,28 +92,27 @@ watch(nodeInfo, (nodeChanged) => {
 });
 
 const toPythonCode = (node) => {
-  const { nodeRefInput1, nodeRefInput2, operation } = node;
-  if (nodeRefInput1 && nodeRefInput2) {
-    const nodeRef1 = programStore.getNode(nodeRefInput1);
-    const nodeRef2 = programStore.getNode(nodeRefInput2);
-    node.pythonCode = `${nodeRef1.identifier} ${operation} ${nodeRef2.identifier}`;
+  if (node.nodeRefInput1 && node.nodeRefInput2) {
+    const nodeRef1 = programStore.getNode(node.nodeRefInput1);
+    const nodeRef2 = programStore.getNode(node.nodeRefInput2);
+    node.pythonCode = `${nodeRef1.identifier} ${node.operation} ${nodeRef2.identifier}`;
   } else {
-    node.pythonCode = "";
+    node.pythonCode = null;
   }
 };
 
 const calculateValue = (node) => {
-  const { nodeRefInput1, nodeRefInput2 } = node;
-  if (nodeRefInput1 && nodeRefInput2) {
-    operate(nodeRefInput1, nodeRefInput2, node);
+  console.log(node.nodeRefInput1, node.nodeRefInput2);
+  if (node.nodeRefInput1 && node.nodeRefInput2) {
+    operate(node);
   } else {
     node.value = null;
   }
 };
 
-const operate = (refInput1, refInput2, nodeChange) => {
-  const nodeRef1 = programStore.getNode(refInput1);
-  const nodeRef2 = programStore.getNode(refInput2);
+const operate = (nodeChange) => {
+  const nodeRef1 = programStore.getNode(nodeChange.nodeRefInput2);
+  const nodeRef2 = programStore.getNode(nodeChange.nodeRefInput2);
 
   switch (nodeChange.operation) {
     case "+":
@@ -118,6 +126,9 @@ const operate = (refInput1, refInput2, nodeChange) => {
       break;
     case "/":
       nodeChange.value = nodeRef1.value / nodeRef2.value;
+      break;
+    case "%":
+      nodeChange.value = nodeRef1.value % nodeRef2.value;
       break;
     default:
       nodeChange.value = null;

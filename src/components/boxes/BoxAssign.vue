@@ -66,7 +66,6 @@ const assigValue = (reference) => {
 
 const toPythonCode = (node) => {
   const nodeRef = programStore.getNode(node.nodeRefInput1);
-
   if (nodeRef) {
     if (nodeRef.type == "Variable" || nodeRef.type == "Assign") {
       node.pythonCode = `${node.identifier} = ${nodeRef.identifier}`;
@@ -74,7 +73,7 @@ const toPythonCode = (node) => {
       node.pythonCode = `${node.identifier} = ${nodeRef.pythonCode}`;
     }
   } else {
-    node.pythonCode = "";
+    node.pythonCode = null;
   }
 };
 </script>

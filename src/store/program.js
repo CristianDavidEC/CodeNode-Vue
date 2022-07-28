@@ -7,6 +7,7 @@ export default defineStore("program", {
     descriptionProgram: "ProgramaPatitoFrito",
     nodesProgram: [],
     drawflowProgram: [],
+    pythonCode: "",
   }),
 
   getters: {
@@ -24,6 +25,10 @@ export default defineStore("program", {
       this.nodesProgram = this.nodesProgram.filter(
         (node) => node.nodeId !== id
       );
+    },
+
+    addPythonCode(code) {
+      this.pythonCode = code;
     },
   },
 });

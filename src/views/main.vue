@@ -40,7 +40,6 @@ import CardCreateProgram from "../components/CardCreateProgram.vue";
 ::-webkit-scrollbar {
   width: 5px;
 }
-
 /* Track */
 ::-webkit-scrollbar-track {
   background: #205bd1a4;
