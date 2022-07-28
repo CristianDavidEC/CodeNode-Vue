@@ -95,5 +95,6 @@ li {
 
 li:hover {
   background-color: rgb(38, 38, 86);
+  font-size: 17px;
 }
 </style>
