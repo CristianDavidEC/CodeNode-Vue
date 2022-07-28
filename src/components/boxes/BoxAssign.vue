@@ -45,6 +45,7 @@ const nodeInfo = reactive({
   nodeRefInput1: null,
   value: null,
   parentNode: null,
+  pythonCode: null,
 });
 
 programStore.addNodeProgram(nodeInfo);
@@ -53,17 +54,29 @@ const addNodeId = (event) => {
   nodeInfo.nodeId = event;
 };
 
-watch(
-  () => nodeInfo.nodeRefInput1,
-  (idNode) => {
-    if (idNode) {
-      const nodeReference = programStore.getNode(idNode);
-      nodeInfo.value = nodeReference.value;
+watch(nodeInfo, (nodeChange) => {
+  assigValue(nodeChange.nodeRefInput1);
+  toPythonCode(nodeChange);
+});
+
+const assigValue = (reference) => {
+  const nodeRef = programStore.getNode(reference);
+  nodeRef ? (nodeInfo.value = nodeRef.value) : (nodeInfo.value = null);
+};
+
+const toPythonCode = (node) => {
+  const nodeRef = programStore.getNode(node.nodeRefInput1);
+
+  if (nodeRef) {
+    if (nodeRef.type == "Variable" || nodeRef.type == "Assign") {
+      node.pythonCode = `${node.identifier} = ${nodeRef.identifier}`;
     } else {
-      nodeInfo.value = null;
+      node.pythonCode = `${node.identifier} = ${nodeRef.pythonCode}`;
     }
+  } else {
+    node.pythonCode = "";
   }
-);
+};
 </script>
 
 <style></style>

@@ -42,10 +42,9 @@ const nodeInfo = reactive({
   type: "Variable",
   nodeId: "",
   identifier: "",
-  nodeRefInput1: null,
   value: null,
   parentNode: null,
-  pytonCode: null,
+  pythonCode: null,
 });
 
 programStore.addNodeProgram(nodeInfo);
@@ -55,14 +54,14 @@ const addNodeId = (event) => {
 };
 
 watch(nodeInfo, (nodeChanged) => {
-  toPytonCode(nodeChanged);
+  toPythonCode(nodeChanged);
 });
 
-const toPytonCode = (node) => {
+const toPythonCode = (node) => {
   const { identifier, value } = node;
-  node.pytonCode = `
-  ${identifier} = ${value}
-  `;
+  value && identifier
+    ? (node.pythonCode = `${identifier} = ${value}`)
+    : (node.pythonCode = "");
 };
 </script>
 

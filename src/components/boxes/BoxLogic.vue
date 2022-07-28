@@ -16,10 +16,8 @@
           <span
             value="Add"
             class="hover:bg-blue-400 hover:text-white rounded-lg w-8 h-8 font-bold border-2 border-blue-900"
-            @click="nodeInfo.operation = 'Less'"
-            :class="
-              nodeInfo.operation == 'Less' ? 'bg-blue-900 text-white' : ''
-            "
+            @click="nodeInfo.operation = '<'"
+            :class="nodeInfo.operation == '<' ? 'bg-blue-900 text-white' : ''"
           >
             &lt;
           </span>
@@ -27,10 +25,8 @@
           <span
             value="Subtract"
             class="hover:bg-blue-400 hover:text-white rounded-lg w-8 h-8 after:first:font-bold border-2 border-blue-900"
-            @click="nodeInfo.operation = 'Greater'"
-            :class="
-              nodeInfo.operation == 'Greater' ? 'bg-blue-900 text-white' : ''
-            "
+            @click="nodeInfo.operation = '>'"
+            :class="nodeInfo.operation == '>' ? 'bg-blue-900 text-white' : ''"
           >
             &gt;
           </span>
@@ -38,10 +34,8 @@
           <span
             value="Multiply"
             class="hover:bg-blue-400 hover:text-white rounded-lg w-8 h-8 font-bold border-2 border-blue-900"
-            @click="nodeInfo.operation = 'Different'"
-            :class="
-              nodeInfo.operation == 'Different' ? 'bg-blue-900 text-white' : ''
-            "
+            @click="nodeInfo.operation = '!='"
+            :class="nodeInfo.operation == '!=' ? 'bg-blue-900 text-white' : ''"
           >
             !=
           </span>
@@ -49,10 +43,8 @@
           <span
             value="Divide"
             class="hover:bg-blue-400 hover:text-white rounded-lg w-8 h-8 font-bold border-2 border-blue-900"
-            @click="nodeInfo.operation = 'Equal'"
-            :class="
-              nodeInfo.operation == 'Equal' ? 'bg-blue-900 text-white' : ''
-            "
+            @click="nodeInfo.operation = '=='"
+            :class="nodeInfo.operation == '==' ? 'bg-blue-900 text-white' : ''"
           >
             =
           </span>
@@ -76,18 +68,58 @@ const programStore = useProgramStore();
 const nodeInfo = reactive({
   type: "LogicOperation",
   nodeId: "",
-  operation: "",
+  operation: "==",
   nodeRefInput1: null,
   nodeRefInput2: null,
-  value: null,
   trueCondition: [],
   falseCondition: [],
   parentNode: null,
+  pythonCode: null,
 });
 
 programStore.addNodeProgram(nodeInfo);
 
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;
+};
+
+watch(nodeInfo, (nodeChange) => {
+  toPytonCode(nodeChange);
+});
+
+const toPytonCode = (node) => {
+  const { nodeRefInput1, nodeRefInput2, operation, parentNode } = node;
+
+  if (nodeRefInput1 && nodeRefInput2) {
+    const nodeRef1 = programStore.getNode(nodeRefInput1);
+    const nodeRef2 = programStore.getNode(nodeRefInput2);
+    const isParent = parentNode ? "\t" : "";
+
+    node.pythonCode =
+      "if " +
+      nodeRef1.identifier +
+      " " +
+      operation +
+      " " +
+      nodeRef2.identifier +
+      ":\n" +
+      conditionCode(node.trueCondition, isParent) +
+      "\n" +
+      isParent +
+      "else:\n" +
+      conditionCode(node.falseCondition, isParent);
+  } else {
+    node.pythonCode = "";
+  }
+  console.log(node.pythonCode);
+};
+
+const conditionCode = (arrayChilds, isParent) => {
+  let pyCode = "";
+  for (const idNode of arrayChilds) {
+    const { pythonCode } = programStore.getNode(idNode);
+    pyCode += "\t" + isParent + pythonCode + "\n";
+  }
+  return pyCode;
 };
 </script>

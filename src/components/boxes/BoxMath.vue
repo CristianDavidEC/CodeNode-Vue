@@ -63,12 +63,12 @@ const programStore = useProgramStore();
 const nodeInfo = reactive({
   type: "MathOperation",
   nodeId: "",
-  operation: "",
+  operation: "+",
   nodeRefInput1: null,
   nodeRefInput2: null,
   value: null,
   parentNode: null,
-  pytonCode: null,
+  pythonCode: null,
 });
 
 programStore.addNodeProgram(nodeInfo);
@@ -78,17 +78,50 @@ const addNodeId = (event) => {
 };
 
 watch(nodeInfo, (nodeChanged) => {
-  toPytonCode(nodeChanged);
+  toPythonCode(nodeChanged);
+  calculateValue(nodeChanged);
 });
 
-const toPytonCode = (node) => {
+const toPythonCode = (node) => {
   const { nodeRefInput1, nodeRefInput2, operation } = node;
   if (nodeRefInput1 && nodeRefInput2) {
-    const node1 = programStore.getNode(nodeRefInput1);
-    const node2 = programStore.getNode(nodeRefInput2);
-    nodeInfo.pytonCode = `${node1.identifier} ${operation} ${node2.identifier}`;
+    const nodeRef1 = programStore.getNode(nodeRefInput1);
+    const nodeRef2 = programStore.getNode(nodeRefInput2);
+    node.pythonCode = `${nodeRef1.identifier} ${operation} ${nodeRef2.identifier}`;
+  } else {
+    node.pythonCode = "";
+  }
+};
 
-    console.log("a = " + nodeInfo.pytonCode);
+const calculateValue = (node) => {
+  const { nodeRefInput1, nodeRefInput2 } = node;
+  if (nodeRefInput1 && nodeRefInput2) {
+    operate(nodeRefInput1, nodeRefInput2, node);
+  } else {
+    node.value = null;
+  }
+};
+
+const operate = (refInput1, refInput2, nodeChange) => {
+  const nodeRef1 = programStore.getNode(refInput1);
+  const nodeRef2 = programStore.getNode(refInput2);
+
+  switch (nodeChange.operation) {
+    case "+":
+      nodeChange.value = nodeRef1.value + nodeRef2.value;
+      break;
+    case "-":
+      nodeChange.value = nodeRef1.value - nodeRef2.value;
+      break;
+    case "*":
+      nodeChange.value = nodeRef1.value * nodeRef2.value;
+      break;
+    case "/":
+      nodeChange.value = nodeRef1.value / nodeRef2.value;
+      break;
+    default:
+      nodeChange.value = null;
+      break;
   }
 };
 </script>

@@ -39,10 +39,35 @@ const nodeInfo = reactive({
   nodeRefInput1: null,
   value: null,
   parentNode: null,
+  pythonCode: null,
 });
 programStore.addNodeProgram(nodeInfo);
 
 const addNodeId = (event) => {
   nodeInfo.nodeId = event;
+};
+
+watch(nodeInfo, (nodeChange) => {
+  assigValue(nodeChange.nodeRefInput1);
+  toPythonCode(nodeChange);
+});
+
+const assigValue = (reference) => {
+  const nodeRef = programStore.getNode(reference);
+  nodeRef ? (nodeInfo.value = nodeRef.value) : (nodeInfo.value = null);
+};
+
+const toPythonCode = (node) => {
+  const nodeRef = programStore.getNode(node.nodeRefInput1);
+
+  if (nodeRef) {
+    if (nodeRef.type == "Variable" || nodeRef.type == "Assign") {
+      node.pythonCode = `print("${node.message}" , ${nodeRef.identifier})`;
+    } else {
+      node.pythonCode = `print("${node.message}" , ${nodeRef.pythonCode})`;
+    }
+  } else {
+    node.pythonCode = `print("${node.message}")`;
+  }
 };
 </script>

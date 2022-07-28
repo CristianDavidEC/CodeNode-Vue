@@ -52,7 +52,7 @@ const boxes = readonly([
   {
     name: "cicle",
     in: 2,
-    out: 1,
+    out: 2,
   },
   {
     name: "print",
