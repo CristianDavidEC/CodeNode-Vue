@@ -22,43 +22,13 @@ import BoxLogic from "./boxes/BoxLogic.vue";
 import BoxCicle from "./boxes/BoxCicle.vue";
 import BoxPrint from "./boxes/BoxPrint.vue";
 import Terminal from "./Terminal.vue";
+import { nodesBase } from "../functions/nodesBase";
 
 const drawFlow = shallowRef({});
 const vue = { version: 3, h, render };
 const internalInstance = getCurrentInstance();
 internalInstance.appContext.app._context.config.globalProperties.$df = drawFlow;
-const boxes = readonly([
-  {
-    name: "variable",
-    in: 1,
-    out: 1,
-  },
-  {
-    name: "assign",
-    in: 1,
-    out: 1,
-  },
-  {
-    name: "math",
-    in: 2,
-    out: 1,
-  },
-  {
-    name: "logic",
-    in: 2,
-    out: 2,
-  },
-  {
-    name: "cicle",
-    in: 2,
-    out: 1,
-  },
-  {
-    name: "print",
-    in: 1,
-    out: 0,
-  },
-]);
+const boxes = readonly(nodesBase);
 
 /**
  * Create a instance of Drawflow and register the node components

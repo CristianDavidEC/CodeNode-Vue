@@ -2,11 +2,11 @@ import { defineStore } from "pinia";
 
 export default defineStore("program", {
   state: () => ({
-    idProgram: "00001",
-    nameProgram: "ProgramaPatitoFrito",
-    descriptionProgram: "ProgramaPatitoFrito",
+    idProgram: "",
+    nameProgram: "",
+    descriptionProgram: "",
     nodesProgram: [],
-    drawflowProgram: [],
+    drawflowProgram: {},
     pythonCode: "",
   }),
 
@@ -25,10 +25,6 @@ export default defineStore("program", {
       this.nodesProgram = this.nodesProgram.filter(
         (node) => node.nodeId !== id
       );
-    },
-
-    addPythonCode(code) {
-      this.pythonCode = code;
     },
   },
 });

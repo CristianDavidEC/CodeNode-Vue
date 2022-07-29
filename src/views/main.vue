@@ -7,13 +7,9 @@
         <h1
           class="font-bold text-4xl tracking-tight text-white mb-1 text-center border-b-2 pb-2 border-sky-600"
         >
-          <router-link to="/board">
-            <font-icon icon="fa-solid fa-laptop-code" class="mr-3" />
-            Code:Node
-            <p class="text-xl font-medium mt-2">
-              Select a Program or Create One
-            </p>
-          </router-link>
+          <font-icon icon="fa-solid fa-laptop-code" class="mr-3" />
+          Code:Node
+          <p class="text-xl font-medium mt-2">Select a Program or Create One</p>
         </h1>
       </header>
       <main class="grid grid-cols-4 px-6 place-items-center">

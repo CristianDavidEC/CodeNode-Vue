@@ -4,7 +4,7 @@
       <div class="w-full flex justify-between px-32 font-bold self-center">
         <button
           class="px-5 py-1 rounded-full border-2 transition duration-150 hover:bg-blue-900"
-          @click="printState"
+          @click="save"
         >
           <font-icon icon="fa-solid fa-floppy-disk" />
           Save
@@ -40,8 +40,6 @@
 import useProgramStore from "../store/program.js";
 import nodesToPython from "../functions/toPython.js";
 const programStore = useProgramStore();
-
-const printState = () => console.log(programStore.nodesProgram);
 
 const toPython = () => nodesToPython(programStore.nodesProgram);
 </script>

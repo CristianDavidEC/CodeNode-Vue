@@ -18,7 +18,8 @@
           name="Identify"
           class="border-2 border-sky-800 w-full rounded-lg px-2 py-1 text-sm text-blue-900 focus:border-sky-600 focus:outline-none"
           placeholder="Name of the Program"
-          maxlength="20"
+          maxlength="15"
+          v-model="name"
         />
       </label>
 
@@ -31,12 +32,15 @@
           class="border-2 border-sky-800 rounded-lg w-full px-2 py-1 text-sm text-blue-900 focus:border-sky-600 focus:outline-none"
           placeholder="A Short Description of the Program"
           maxlength="70"
+          v-model="description"
         />
       </label>
 
       <router-link to="/board">
         <button
           class="transition duration-300 p-1 rounded-lg font-bold border-2 my-2 mr-10 bg-color hover:bg-blue-900"
+          @click="createProgram"
+          type="submit"
         >
           <font-icon icon="fa-solid fa-terminal" />
           Create Program
@@ -46,7 +50,21 @@
   </div>
 </template>
 
-<script></script>
+<script setup>
+import { ref } from "vue";
+import useProgramStrore from "../store/program.js";
+import createID from "../functions/functions.js";
+
+const name = ref("");
+const description = ref("");
+const programStore = useProgramStrore();
+
+const createProgram = () => {
+  programStore.nameProgram = name.value;
+  programStore.descriptionProgram = description.value;
+  programStore.idProgram = createID();
+};
+</script>
 
 <style>
 .color-card {

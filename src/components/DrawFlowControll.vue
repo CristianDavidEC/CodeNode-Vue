@@ -1,9 +1,7 @@
 <template></template>
 <script setup>
 /** This component control all events to drawflow object */
-import { faL } from "@fortawesome/free-solid-svg-icons";
-import { BIconChevronCompactLeft } from "bootstrap-icons-vue";
-import { getCurrentInstance, watch } from "vue";
+import { getCurrentInstance } from "vue";
 import useProgramStore from "../store/program";
 
 let dfcontrol =

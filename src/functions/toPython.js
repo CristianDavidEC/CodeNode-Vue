@@ -10,7 +10,7 @@ const nodesToPython = (nodesProgram) => {
       code += `${pythonCode} \n`;
     }
   }
-  programStore.addPythonCode(code);
+  programStore.pythonCode = code;
 };
 
 export default nodesToPython;
