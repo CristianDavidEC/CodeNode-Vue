@@ -10,9 +10,13 @@ const getAllPrograms = async () => {
     headers: { "Content-Type": "application/json" },
   };
 
-  await fetch(`${url}get-all-programs`, options).then((response) => {
-    console.log(response);
-  });
+  await fetch(`${url}get-all-programs`, options)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    });
 };
 
 const getProgram = async (idProgram) => {
@@ -20,10 +24,13 @@ const getProgram = async (idProgram) => {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   };
-
-  await fetch(`${url}get-program/${idProgram}`, options).then((response) => {
-    console.log(response);
-  });
+  await fetch(`${url}get-program/${idProgram}`, options)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    });
 };
 
 const saveProgram = async () => {
@@ -33,10 +40,13 @@ const saveProgram = async () => {
     headers: { "Content-Type": "application/json" },
     body: dataProgram,
   };
-  console.log(programStore);
-  await fetch(`${url}save-program`, options).then((response) => {
-    console.log(response);
-  });
+  await fetch(`${url}save-program`, options)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    });
 };
 
 const runCode = async () => {
@@ -45,10 +55,13 @@ const runCode = async () => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ Code: programStore.pythonCode }),
   };
-  console.log(options);
-  await fetch(`${url}run-code`, options).then((response) => {
-    console.log(response);
-  });
+  await fetch(`${url}run-code`, options)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      programStore.pythonCode = data.code;
+    });
 };
 
 export { getAllPrograms, getProgram, saveProgram, runCode };

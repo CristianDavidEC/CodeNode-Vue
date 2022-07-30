@@ -92,7 +92,6 @@ const addNodeId = (event) => {
 
 watch(nodeInfo, (nodeChanged) => {
   if (isValidReference(nodeChanged)) {
-    console.log("nodeChanged");
     return calculateValue(nodeChanged);
   }
   nodeChanged.pythonCode = null;
@@ -123,7 +122,6 @@ const calculateValue = (nodeChange) => {
       nodeChange.value = null;
       break;
   }
-  console.log(nodeChange.value);
 };
 </script>
 

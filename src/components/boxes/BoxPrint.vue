@@ -68,7 +68,7 @@ const toPythonCode = (node) => {
 };
 
 const assignPythonCode = (node, nodeRef) => {
-  if (validNodeType[node.type]) {
+  if (validNodeType[nodeRef.type]) {
     node.pythonCode = `print("${node.message}" , ${nodeRef.identifier})`;
     return;
   }

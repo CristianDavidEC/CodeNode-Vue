@@ -26,5 +26,14 @@ export default defineStore("program", {
         (node) => node.nodeId !== id
       );
     },
+
+    resetProgram() {
+      this.idProgram = "";
+      this.nameProgram = "";
+      this.descriptionProgram = "";
+      this.nodesProgram = [];
+      this.drawflowProgram = {};
+      this.pythonCode = "";
+    },
   },
 });

@@ -4,8 +4,8 @@ const statementType = {
 };
 
 const validNodeType = {
-  variable: true,
-  assign: true,
+  Variable: true,
+  Assign: true,
 };
 
 export { validNodeType, statementType };

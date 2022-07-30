@@ -54,7 +54,10 @@ const save = () => {
 };
 
 const executeProgram = () => {
-  runCode();
+  nodesToPython(programStore.nodesProgram);
+  setTimeout(function () {
+    runCode();
+  }, 1500);
 };
 </script>
 
