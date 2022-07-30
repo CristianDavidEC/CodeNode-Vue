@@ -1,6 +1,6 @@
 <template>
   <button
-    class="absolute top-16 right-5 z-10 bg-color text-white p-3 rounded-lg transition duration-300 hover:bg-blue-900"
+    class="absolute bottom-5 right-5 z-10 bg-color text-white p-3 rounded-lg transition duration-300 hover:bg-blue-900"
     v-if="isOpen == false"
     @click="isOpen = !isOpen"
   >

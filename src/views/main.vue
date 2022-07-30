@@ -20,8 +20,14 @@
   </div>
 </template>
 <script setup>
+import { onMounted } from "vue";
 import CardProgram from "../components/CardProgram.vue";
 import CardCreateProgram from "../components/CardCreateProgram.vue";
+import { getAllPrograms } from "../utilities/api.js";
+
+onMounted(() => {
+  getAllPrograms();
+});
 </script>
 <style>
 .contend {

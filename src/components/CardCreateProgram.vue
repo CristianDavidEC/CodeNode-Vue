@@ -53,7 +53,7 @@
 <script setup>
 import { ref } from "vue";
 import useProgramStrore from "../store/program.js";
-import createID from "../functions/functions.js";
+import { createID } from "../utilities/functions.js";
 
 const name = ref("");
 const description = ref("");

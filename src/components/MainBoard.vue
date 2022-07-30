@@ -12,6 +12,7 @@ import {
   readonly,
   shallowRef,
   getCurrentInstance,
+  inject,
 } from "vue";
 import Drawflow from "drawflow";
 import DfControl from "./DrawFlowControll.vue";
@@ -22,14 +23,16 @@ import BoxLogic from "./boxes/BoxLogic.vue";
 import BoxCicle from "./boxes/BoxCicle.vue";
 import BoxPrint from "./boxes/BoxPrint.vue";
 import Terminal from "./Terminal.vue";
-import { nodesBase } from "../functions/nodesBase";
+import { nodesBase } from "../utilities/nodesBase";
+import useProgramStore from "../store/program.js";
 
 const drawFlow = shallowRef({});
 const vue = { version: 3, h, render };
 const internalInstance = getCurrentInstance();
 internalInstance.appContext.app._context.config.globalProperties.$df = drawFlow;
 const boxes = readonly(nodesBase);
-
+const emitter = inject("emitter");
+const programStore = useProgramStore();
 /**
  * Create a instance of Drawflow and register the node components
  */
@@ -43,6 +46,11 @@ onMounted(() => {
   drawFlow.value.reroute = true;
   drawFlow.value.start();
   registerNodes();
+});
+
+emitter.on("saveProgram", () => {
+  let drawFlowExport = drawFlow.value.export();
+  programStore.drawflowProgram = drawFlowExport;
 });
 
 /**

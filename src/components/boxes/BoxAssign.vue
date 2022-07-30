@@ -36,6 +36,7 @@ import BoxNode from "./BoxNode.vue";
 import useProgramStore from "../../store/program";
 import { BIconBoxArrowInRight } from "bootstrap-icons-vue";
 import { reactive, watch } from "vue";
+import { validNodeType } from "../../utilities/constants.js";
 
 const programStore = useProgramStore();
 const nodeInfo = reactive({
@@ -55,11 +56,11 @@ const addNodeId = (event) => {
 };
 
 watch(nodeInfo, (nodeChange) => {
-  assigValue(nodeChange.nodeRefInput1);
+  assingValue(nodeChange.nodeRefInput1);
   toPythonCode(nodeChange);
 });
 
-const assigValue = (reference) => {
+const assingValue = (reference) => {
   const nodeRef = programStore.getNode(reference);
   nodeRef ? (nodeInfo.value = nodeRef.value) : (nodeInfo.value = null);
 };
@@ -67,14 +68,17 @@ const assigValue = (reference) => {
 const toPythonCode = (node) => {
   const nodeRef = programStore.getNode(node.nodeRefInput1);
   if (nodeRef) {
-    if (nodeRef.type == "Variable" || nodeRef.type == "Assign") {
-      node.pythonCode = `${node.identifier} = ${nodeRef.identifier}`;
-    } else {
-      node.pythonCode = `${node.identifier} = ${nodeRef.pythonCode}`;
-    }
-  } else {
-    node.pythonCode = null;
+    return assignPythonCode(node, nodeRef);
   }
+  node.pythonCode = null;
+};
+
+const assignPythonCode = (node, nodeRef) => {
+  if (validNodeType[node.type]) {
+    node.pythonCode = `${node.identifier} = ${nodeRef.identifier}`;
+    return;
+  }
+  node.pythonCode = `${node.identifier} = ${nodeRef.pythonCode}`;
 };
 </script>
 

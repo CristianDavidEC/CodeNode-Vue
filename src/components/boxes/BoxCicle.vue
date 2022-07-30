@@ -18,6 +18,10 @@ import { reactive, watch } from "vue";
 import useProgramStore from "../../store/program.js";
 import { BIconArrowRepeat } from "bootstrap-icons-vue";
 import BoxNode from "./BoxNode.vue";
+import {
+  getNodesReferences,
+  generateStatementCode,
+} from "../../utilities/functionsNodes.js";
 
 const programStore = useProgramStore();
 
@@ -49,19 +53,8 @@ const toPytonCode = (node) => {
   }
 };
 
-const cicleCode = (arrayChilds, isParent) => {
-  let pyCode = "";
-  for (const idNode of arrayChilds) {
-    const nodeChild = programStore.getNode(idNode);
-    pyCode += "\t" + isParent + nodeChild.pythonCode + "\n";
-  }
-  return pyCode;
-};
-
 const formatCode = (node) => {
-  const nodeRef1 = programStore.getNode(node.nodeRefInput1);
-  const nodeRef2 = programStore.getNode(node.nodeRefInput2);
-  const isParent = node.parentNode ? "\t" : "";
+  let { nodeRef1, nodeRef2 } = getNodesReferences(node);
 
   let code =
     "for i in range( " +
@@ -69,7 +62,7 @@ const formatCode = (node) => {
     ", " +
     nodeRef2.identifier +
     " + 1 ):\n" +
-    cicleCode(node.cicle, isParent);
+    generateStatementCode(node.cicle, node.parentNode);
 
   return code;
 };

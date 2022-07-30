@@ -63,6 +63,12 @@ import { reactive, watch } from "vue";
 import useProgramStore from "../../store/program.js";
 import { BIconShuffle } from "bootstrap-icons-vue";
 import BoxNode from "./BoxNode.vue";
+import {
+  isValidReference,
+  getNodesReferences,
+  generateStatementCode,
+  isParent,
+} from "../../utilities/functionsNodes.js";
 
 const programStore = useProgramStore();
 const nodeInfo = reactive({
@@ -88,26 +94,15 @@ watch(nodeInfo, (nodeChange) => {
 });
 
 const toPytonCode = (node) => {
-  if (node.nodeRefInput1 && node.nodeRefInput2) {
+  if (isValidReference(node)) {
     node.pythonCode = formatCode(node);
-  } else {
-    node.pythonCode = null;
+    return;
   }
-};
-
-const conditionCode = (arrayChilds, isParent) => {
-  let pyCode = "";
-  for (const idNode of arrayChilds) {
-    const nodeChild = programStore.getNode(idNode);
-    pyCode += "\t" + isParent + nodeChild.pythonCode + "\n";
-  }
-  return pyCode;
+  node.pythonCode = null;
 };
 
 const formatCode = (node) => {
-  const nodeRef1 = programStore.getNode(node.nodeRefInput1);
-  const nodeRef2 = programStore.getNode(node.nodeRefInput2);
-  const isParent = node.parentNode ? "\t" : "";
+  let { nodeRef1, nodeRef2 } = getNodesReferences(node);
 
   let code =
     "if " +
@@ -117,11 +112,11 @@ const formatCode = (node) => {
     " " +
     nodeRef2.identifier +
     ":\n" +
-    conditionCode(node.trueCondition, isParent) +
+    generateStatementCode(node.trueCondition, node.parentNode) +
     "\n" +
-    isParent +
+    isParent(node.parentNode) +
     "else:\n" +
-    conditionCode(node.falseCondition, isParent);
+    generateStatementCode(node.falseCondition, node.parentNode);
 
   return code;
 };

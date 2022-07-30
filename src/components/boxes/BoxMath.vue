@@ -65,6 +65,10 @@ import {
   BIconSlashSquare,
   BIconPercent,
 } from "bootstrap-icons-vue";
+import {
+  isValidReference,
+  getNodesReferences,
+} from "../../utilities/functionsNodes.js";
 
 import BoxNode from "./BoxNode.vue";
 
@@ -87,31 +91,17 @@ const addNodeId = (event) => {
 };
 
 watch(nodeInfo, (nodeChanged) => {
-  toPythonCode(nodeChanged);
-  calculateValue(nodeChanged);
+  if (isValidReference(nodeChanged)) {
+    console.log("nodeChanged");
+    return calculateValue(nodeChanged);
+  }
+  nodeChanged.pythonCode = null;
+  nodeChanged.value = null;
 });
 
-const toPythonCode = (node) => {
-  if (node.nodeRefInput1 && node.nodeRefInput2) {
-    const nodeRef1 = programStore.getNode(node.nodeRefInput1);
-    const nodeRef2 = programStore.getNode(node.nodeRefInput2);
-    node.pythonCode = `${nodeRef1.identifier} ${node.operation} ${nodeRef2.identifier}`;
-  } else {
-    node.pythonCode = null;
-  }
-};
-
-const calculateValue = (node) => {
-  if (node.nodeRefInput1 && node.nodeRefInput2) {
-    operate(node);
-  } else {
-    node.value = null;
-  }
-};
-
-const operate = (nodeChange) => {
-  const nodeRef1 = programStore.getNode(nodeChange.nodeRefInput2);
-  const nodeRef2 = programStore.getNode(nodeChange.nodeRefInput2);
+const calculateValue = (nodeChange) => {
+  let { nodeRef1, nodeRef2 } = getNodesReferences(nodeChange);
+  nodeChange.pythonCode = `${nodeRef1.identifier} ${nodeChange.operation} ${nodeRef2.identifier}`;
 
   switch (nodeChange.operation) {
     case "+":
@@ -133,6 +123,7 @@ const operate = (nodeChange) => {
       nodeChange.value = null;
       break;
   }
+  console.log(nodeChange.value);
 };
 </script>
 
