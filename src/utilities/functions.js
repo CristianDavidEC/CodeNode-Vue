@@ -3,6 +3,7 @@ const createID = () => {
 };
 
 const convertDataPost = (program) => {
+  program.idProgram = createID();
   const objetData = {
     id: program.idProgram,
     name: program.nameProgram,

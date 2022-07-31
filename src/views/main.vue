@@ -14,21 +14,30 @@
       </header>
       <main class="grid grid-cols-4 px-6 place-items-center">
         <CardCreateProgram />
-        <CardProgram v-for="index in 5" :key="index" />
+        <div v-for="programInfo in listPrograms">
+          <CardProgram :program="programInfo" />
+        </div>
       </main>
     </div>
   </div>
 </template>
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import CardProgram from "../components/CardProgram.vue";
 import CardCreateProgram from "../components/CardCreateProgram.vue";
 import { getAllPrograms } from "../utilities/api.js";
 
+const listPrograms = ref([]);
+
 onMounted(() => {
-  getAllPrograms();
+  getAllPrograms(loadProgramsCard);
 });
+
+const loadProgramsCard = (data) => {
+  listPrograms.value = data;
+};
 </script>
+
 <style>
 .contend {
   padding: 40px;

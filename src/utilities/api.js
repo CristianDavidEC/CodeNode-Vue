@@ -4,7 +4,7 @@ import { convertDataPost } from "../utilities/functions.js";
 const programStore = useProgramStore();
 const url = "http://localhost:3080/";
 
-const getAllPrograms = async () => {
+const getAllPrograms = async (callback) => {
   const options = {
     method: "GET",
     headers: { "Content-Type": "application/json" },
@@ -15,7 +15,7 @@ const getAllPrograms = async () => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      callback(data.getAllPrograms);
     });
 };
 
@@ -29,12 +29,13 @@ const getProgram = async (idProgram) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      return data;
     });
 };
 
 const saveProgram = async () => {
   let dataProgram = convertDataPost(programStore);
+  console.log(dataProgram);
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
