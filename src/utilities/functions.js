@@ -10,7 +10,6 @@ const convertDataPost = (program) => {
     description: program.descriptionProgram,
     nodes: JSON.stringify(program.nodesProgram),
     drawflow: JSON.stringify(program.drawflowProgram),
-    code: program.pythonCode,
   };
   return objetData;
 };

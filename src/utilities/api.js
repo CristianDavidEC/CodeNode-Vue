@@ -34,27 +34,22 @@ const getProgram = async (idProgram) => {
 };
 
 const saveProgram = async () => {
-  let dataProgram = convertDataPost(programStore);
-  console.log(dataProgram);
+  let newProgram = convertDataPost(programStore);
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: dataProgram,
+    body: JSON.stringify(newProgram),
   };
-  await fetch(`${url}save-program`, options)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-    });
+  await fetch(`${url}save-program`, options).then((response) => {
+    console.log(response.status);
+  });
 };
 
 const runCode = async () => {
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ Code: programStore.pythonCode }),
+    body: JSON.stringify({ code: programStore.pythonCode }),
   };
   await fetch(`${url}run-code`, options)
     .then((response) => {
