@@ -1,5 +1,5 @@
 <template>
-  <BoxNode title="Assign" @onNodeId="addNodeId($event)">
+  <BoxNode title="Assign" @onNodeId="addDataNode($event)">
     <template #icon>
       <BIconBoxArrowInRight class="title-color font-semibold text-lg" />
     </template>
@@ -32,54 +32,63 @@
 </template>
 
 <script setup>
-import BoxNode from "./BoxNode.vue";
-import useProgramStore from "../../store/program";
-import { BIconBoxArrowInRight } from "bootstrap-icons-vue";
-import { reactive, watch } from "vue";
-import { validNodeType } from "../../utilities/constants.js";
+import BoxNode from './BoxNode.vue'
+import useProgramStore from '../../store/program'
+import { BIconBoxArrowInRight } from 'bootstrap-icons-vue'
+import { reactive, watch, getCurrentInstance } from 'vue'
+import { validNodeType } from '../../utilities/constants.js'
 
-const programStore = useProgramStore();
+const programStore = useProgramStore()
 const nodeInfo = reactive({
-  type: "Assign",
-  nodeId: "",
-  identifier: "",
+  type: 'Assign',
+  nodeId: '',
+  identifier: '',
   nodeRefInput1: null,
   value: null,
   parentNode: null,
   pythonCode: null,
-});
+})
 
-programStore.addNodeProgram(nodeInfo);
+let drawFlow = getCurrentInstance().appContext.config.globalProperties.$df.value
+programStore.addNodeProgram(nodeInfo)
 
-const addNodeId = (event) => {
-  nodeInfo.nodeId = event;
-};
+const addDataNode = (event) => {
+  nodeInfo.nodeId = event
+  const drawNode = drawFlow.getNodeFromId(event)
+  if (drawNode.data.type) {
+    nodeInfo.identifier = drawNode.data.identifier
+    nodeInfo.nodeRefInput1 = drawNode.data.nodeRefInput1
+    nodeInfo.value = drawNode.data.value
+    nodeInfo.parentNode = drawNode.data.parentNode
+    nodeInfo.pythonCode = drawNode.data.pythonCode
+  }
+}
 
 watch(nodeInfo, (nodeChange) => {
-  assingValue(nodeChange.nodeRefInput1);
-  toPythonCode(nodeChange);
-});
+  assingValue(nodeChange.nodeRefInput1)
+  toPythonCode(nodeChange)
+})
 
 const assingValue = (reference) => {
-  const nodeRef = programStore.getNode(reference);
-  nodeRef ? (nodeInfo.value = nodeRef.value) : (nodeInfo.value = null);
-};
+  const nodeRef = programStore.getNode(reference)
+  nodeRef ? (nodeInfo.value = nodeRef.value) : (nodeInfo.value = null)
+}
 
 const toPythonCode = (node) => {
-  const nodeRef = programStore.getNode(node.nodeRefInput1);
+  const nodeRef = programStore.getNode(node.nodeRefInput1)
   if (nodeRef) {
-    return assignPythonCode(node, nodeRef);
+    return assignPythonCode(node, nodeRef)
   }
-  node.pythonCode = null;
-};
+  node.pythonCode = null
+}
 
 const assignPythonCode = (node, nodeRef) => {
   if (validNodeType[nodeRef.type]) {
-    node.pythonCode = `${node.identifier} = ${nodeRef.identifier}`;
-    return;
+    node.pythonCode = `${node.identifier} = ${nodeRef.identifier}`
+    return
   }
-  node.pythonCode = `${node.identifier} = ${nodeRef.pythonCode}`;
-};
+  node.pythonCode = `${node.identifier} = ${nodeRef.pythonCode}`
+}
 </script>
 
 <style></style>

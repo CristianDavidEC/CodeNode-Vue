@@ -10,60 +10,30 @@
             </h1>
           </div>
         </router-link>
-        <li
-          class="py-3 border-b mx-3 px-4"
-          draggable="true"
-          @dragstart="drag($event)"
-          :data-node="'variable'"
-        >
+        <li class="py-3 border-b mx-3 px-4" draggable="true" @dragstart="drag($event)" :data-node="'variable'">
           <font-icon icon="fa fa-cubes" />
           Variable
         </li>
 
-        <li
-          class="py-3 border-b mx-3 px-4"
-          draggable="true"
-          @dragstart="drag($event)"
-          :data-node="'assign'"
-        >
+        <li class="py-3 border-b mx-3 px-4" draggable="true" @dragstart="drag($event)" :data-node="'assign'">
           <font-icon icon="fa-solid fa-arrow-right-to-bracket" />
           Assign
         </li>
 
-        <li
-          class="py-3 border-b mx-3 px-4"
-          draggable="true"
-          @dragstart="drag($event)"
-          :data-node="'math'"
-        >
+        <li class="py-3 border-b mx-3 px-4" draggable="true" @dragstart="drag($event)" :data-node="'math'">
           <font-icon icon="fa fa-calculator" />
           Math Operation
         </li>
 
-        <li
-          class="py-3 border-b mx-3 px-4"
-          draggable="true"
-          @dragstart="drag($event)"
-          :data-node="'logic'"
-        >
+        <li class="py-3 border-b mx-3 px-4" draggable="true" @dragstart="drag($event)" :data-node="'logic'">
           <font-icon icon="fa-solid fa-code-merge" />
           Logic Operation
         </li>
-        <li
-          class="py-3 border-b mx-3 px-4"
-          draggable="true"
-          @dragstart="drag($event)"
-          :data-node="'cicle'"
-        >
+        <li class="py-3 border-b mx-3 px-4" draggable="true" @dragstart="drag($event)" :data-node="'cicle'">
           <font-icon icon="fa-solid fa-code-compare" />
           Cycle
         </li>
-        <li
-          class="py-3 border-b mx-3 px-4"
-          draggable="true"
-          @dragstart="drag($event)"
-          :data-node="'print'"
-        >
+        <li class="py-3 border-b mx-3 px-4" draggable="true" @dragstart="drag($event)" :data-node="'print'">
           <font-icon icon="fa-solid fa-print" />
           Print
         </li>

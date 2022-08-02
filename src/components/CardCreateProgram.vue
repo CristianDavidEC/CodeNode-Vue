@@ -63,7 +63,6 @@ const createProgram = () => {
   programStore.resetProgram();
   programStore.nameProgram = name.value;
   programStore.descriptionProgram = description.value;
-  programStore.idProgram = "0000000000";
 };
 </script>
 

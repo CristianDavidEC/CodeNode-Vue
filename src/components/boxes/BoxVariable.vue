@@ -1,5 +1,5 @@
 <template>
-  <BoxNode title="Variable" @onNodeId="addNodeId($event)">
+  <BoxNode title="Variable" @onNodeId="addDataNode($event)">
     <template #icon>
       <BIconBoxes class="title-color font-semibold text-lg" />
     </template>
@@ -32,36 +32,43 @@
 </template>
 
 <script setup>
-import BoxNode from "./BoxNode.vue";
-import { BIconBoxes } from "bootstrap-icons-vue";
-import { reactive, watch } from "vue";
-import useProgramStore from "../../store/program.js";
+import BoxNode from './BoxNode.vue'
+import { BIconBoxes } from 'bootstrap-icons-vue'
+import { reactive, watch, getCurrentInstance } from 'vue'
+import useProgramStore from '../../store/program.js'
 
-const programStore = useProgramStore();
+const programStore = useProgramStore()
 const nodeInfo = reactive({
-  type: "Variable",
-  nodeId: "",
-  identifier: "",
+  type: 'Variable',
+  nodeId: '',
+  identifier: '',
   value: 0,
   parentNode: null,
   pythonCode: null,
-});
+})
+let drawFlow = getCurrentInstance().appContext.config.globalProperties.$df.value
+programStore.addNodeProgram(nodeInfo)
 
-programStore.addNodeProgram(nodeInfo);
-
-const addNodeId = (event) => {
-  nodeInfo.nodeId = event;
-};
+const addDataNode = (event) => {
+  nodeInfo.nodeId = event
+  const drawNode = drawFlow.getNodeFromId(event)
+  if (drawNode.data.type) {
+    nodeInfo.identifier = drawNode.data.identifier
+    nodeInfo.value = drawNode.data.value
+    nodeInfo.parentNode = drawNode.data.parentNode
+    nodeInfo.pythonCode = drawNode.data.pythonCode
+  }
+}
 
 watch(nodeInfo, (nodeChanged) => {
-  toPythonCode(nodeChanged);
-});
+  toPythonCode(nodeChanged)
+})
 
 const toPythonCode = (node) => {
   node.identifier
     ? (node.pythonCode = `${node.identifier} = ${node.value}`)
-    : (node.pythonCode = null);
-};
+    : (node.pythonCode = null)
+}
 </script>
 
 <style></style>

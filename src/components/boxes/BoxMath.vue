@@ -1,5 +1,5 @@
 <template>
-  <BoxNode title="Math Operation" @onNodeId="addNodeId($event)">
+  <BoxNode title="Math Operation" @onNodeId="addDataNode($event)">
     <template #icon>
       <BIconCalculator class="title-color font-semibold text-lg" />
     </template>
@@ -55,8 +55,8 @@
 </template>
 
 <script setup>
-import { reactive, watch } from "vue";
-import useProgramStore from "../../store/program.js";
+import { reactive, watch, getCurrentInstance } from 'vue'
+import useProgramStore from '../../store/program.js'
 import {
   BIconCalculator,
   BIconPlusSquare,
@@ -64,65 +64,74 @@ import {
   BIconXSquare,
   BIconSlashSquare,
   BIconPercent,
-} from "bootstrap-icons-vue";
+} from 'bootstrap-icons-vue'
 import {
   isValidReference,
   getNodesReferences,
-} from "../../utilities/functionsNodes.js";
+} from '../../utilities/functionsNodes.js'
 
-import BoxNode from "./BoxNode.vue";
+import BoxNode from './BoxNode.vue'
 
-const programStore = useProgramStore();
+const programStore = useProgramStore()
 const nodeInfo = reactive({
-  type: "MathOperation",
-  nodeId: "",
-  operation: "+",
+  type: 'MathOperation',
+  nodeId: '',
+  operation: '+',
   nodeRefInput1: null,
   nodeRefInput2: null,
   value: null,
   parentNode: null,
   pythonCode: null,
-});
+})
+let drawFlow = getCurrentInstance().appContext.config.globalProperties.$df.value
+programStore.addNodeProgram(nodeInfo)
 
-programStore.addNodeProgram(nodeInfo);
-
-const addNodeId = (event) => {
-  nodeInfo.nodeId = event;
-};
+const addDataNode = (event) => {
+  nodeInfo.nodeId = event
+  const drawNode = drawFlow.getNodeFromId(event)
+  if (drawNode.data.type) {
+    nodeInfo.operation = drawNode.data.operation
+    nodeInfo.nodeRefInput1 = drawNode.data.nodeRefInput1
+    nodeInfo.nodeRefInput2 = drawNode.data.nodeRefInput2
+    nodeInfo.value = drawNode.data.value
+    nodeInfo.parentNode = drawNode.data.parentNode
+    nodeInfo.pythonCode = drawNode.data.pythonCode
+  }
+}
 
 watch(nodeInfo, (nodeChanged) => {
   if (isValidReference(nodeChanged)) {
-    return calculateValue(nodeChanged);
+    return calculateValue(nodeChanged)
   }
-  nodeChanged.pythonCode = null;
-  nodeChanged.value = null;
-});
+  nodeChanged.pythonCode = null
+  nodeChanged.value = null
+})
 
 const calculateValue = (nodeChange) => {
-  let { nodeRef1, nodeRef2 } = getNodesReferences(nodeChange);
-  nodeChange.pythonCode = `${nodeRef1.identifier} ${nodeChange.operation} ${nodeRef2.identifier}`;
+  let { nodeRef1, nodeRef2 } = getNodesReferences(nodeChange)
+  nodeChange.pythonCode = `${nodeRef1.identifier} ${nodeChange.operation} ${nodeRef2.identifier}`
 
   switch (nodeChange.operation) {
-    case "+":
-      nodeChange.value = nodeRef1.value + nodeRef2.value;
-      break;
-    case "-":
-      nodeChange.value = nodeRef1.value - nodeRef2.value;
-      break;
-    case "*":
-      nodeChange.value = nodeRef1.value * nodeRef2.value;
-      break;
-    case "/":
-      nodeChange.value = nodeRef1.value / nodeRef2.value;
-      break;
-    case "%":
-      nodeChange.value = nodeRef1.value % nodeRef2.value;
-      break;
+    case '+':
+      nodeChange.value = nodeRef1.value + nodeRef2.value
+      break
+    case '-':
+      nodeChange.value = nodeRef1.value - nodeRef2.value
+      break
+    case '*':
+      nodeChange.value = nodeRef1.value * nodeRef2.value
+      break
+    case '/':
+      nodeChange.value = nodeRef1.value / nodeRef2.value
+      break
+    case '%':
+      nodeChange.value = nodeRef1.value % nodeRef2.value
+      break
     default:
-      nodeChange.value = null;
-      break;
+      nodeChange.value = null
+      break
   }
-};
+}
 </script>
 
 <style></style>

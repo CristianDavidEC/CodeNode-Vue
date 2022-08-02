@@ -38,27 +38,25 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
-import useProgramStore from "../store/program.js";
-import nodesToPython from "../utilities/toPython.js";
-import { runCode, saveProgram } from "../utilities/api.js";
+import { inject } from 'vue'
+import useProgramStore from '../store/program.js'
+import nodesToPython from '../utilities/toPython.js'
+import { runCode, saveProgram } from '../utilities/api.js'
 
-const programStore = useProgramStore();
-const emitter = inject("emitter");
+const programStore = useProgramStore()
+const emitter = inject('emitter')
 
-const toPython = () => nodesToPython(programStore.nodesProgram);
+const toPython = () => nodesToPython(programStore.nodesProgram)
 
 const save = () => {
-  emitter.emit("saveProgram");
-  saveProgram();
-};
+  emitter.emit('saveProgram')
+  saveProgram()
+}
 
 const executeProgram = () => {
-  nodesToPython(programStore.nodesProgram);
-  setTimeout(function () {
-    runCode();
-  }, 1500);
-};
+  nodesToPython(programStore.nodesProgram)
+  runCode()
+}
 </script>
 
 <style>

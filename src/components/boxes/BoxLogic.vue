@@ -1,5 +1,5 @@
 <template>
-  <BoxNode title="Logic Operation" @onNodeId="addNodeId($event)">
+  <BoxNode title="Logic Operation" @onNodeId="addDataNode($event)">
     <template #icon>
       <BIconShuffle class="title-color font-bold text-lg" />
     </template>
@@ -59,65 +59,76 @@
 </template>
 
 <script setup>
-import { reactive, watch } from "vue";
-import useProgramStore from "../../store/program.js";
-import { BIconShuffle } from "bootstrap-icons-vue";
-import BoxNode from "./BoxNode.vue";
+import { reactive, watch, getCurrentInstance } from 'vue'
+import useProgramStore from '../../store/program.js'
+import { BIconShuffle } from 'bootstrap-icons-vue'
+import BoxNode from './BoxNode.vue'
 import {
   isValidReference,
   getNodesReferences,
   generateStatementCode,
   isParent,
-} from "../../utilities/functionsNodes.js";
+} from '../../utilities/functionsNodes.js'
 
-const programStore = useProgramStore();
+const programStore = useProgramStore()
 const nodeInfo = reactive({
-  type: "LogicOperation",
-  nodeId: "",
-  operation: "==",
+  type: 'LogicOperation',
+  nodeId: '',
+  operation: '==',
   nodeRefInput1: null,
   nodeRefInput2: null,
   trueCondition: [],
   falseCondition: [],
   parentNode: null,
   pythonCode: null,
-});
+})
 
-programStore.addNodeProgram(nodeInfo);
+let drawFlow = getCurrentInstance().appContext.config.globalProperties.$df.value
+programStore.addNodeProgram(nodeInfo)
 
-const addNodeId = (event) => {
-  nodeInfo.nodeId = event;
-};
+const addDataNode = (event) => {
+  nodeInfo.nodeId = event
+  const drawNode = drawFlow.getNodeFromId(event)
+  if (drawNode.data.type) {
+    nodeInfo.operation = drawNode.data.operation
+    nodeInfo.nodeRefInput1 = drawNode.data.nodeRefInput1
+    nodeInfo.nodeRefInput2 = drawNode.data.nodeRefInput2
+    nodeInfo.trueCondition = drawNode.data.trueCondition
+    nodeInfo.falseCondition = drawNode.data.falseCondition
+    nodeInfo.parentNode = drawNode.data.parentNode
+    nodeInfo.pythonCode = drawNode.data.pythonCode
+  }
+}
 
 watch(nodeInfo, (nodeChange) => {
-  toPytonCode(nodeChange);
-});
+  toPytonCode(nodeChange)
+})
 
 const toPytonCode = (node) => {
   if (isValidReference(node)) {
-    node.pythonCode = formatCode(node);
-    return;
+    node.pythonCode = formatCode(node)
+    return
   }
-  node.pythonCode = null;
-};
+  node.pythonCode = null
+}
 
 const formatCode = (node) => {
-  let { nodeRef1, nodeRef2 } = getNodesReferences(node);
+  let { nodeRef1, nodeRef2 } = getNodesReferences(node)
 
   let code =
-    "if " +
+    'if ' +
     nodeRef1.identifier +
-    " " +
+    ' ' +
     node.operation +
-    " " +
+    ' ' +
     nodeRef2.identifier +
-    ":\n" +
+    ':\n' +
     generateStatementCode(node.trueCondition, node.parentNode) +
-    "\n" +
+    '\n' +
     isParent(node.parentNode) +
-    "else:\n" +
-    generateStatementCode(node.falseCondition, node.parentNode);
+    'else:\n' +
+    generateStatementCode(node.falseCondition, node.parentNode)
 
-  return code;
-};
+  return code
+}
 </script>

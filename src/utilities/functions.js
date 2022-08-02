@@ -1,17 +1,30 @@
 const createID = () => {
-  return Math.floor(Math.random() * 10000000000).toString();
-};
+  return Math.floor(Math.random() * 10000000000).toString()
+}
 
 const convertDataPost = (program) => {
-  program.idProgram = createID();
+  program.idProgram = createID()
   const objetData = {
     id: program.idProgram,
     name: program.nameProgram,
     description: program.descriptionProgram,
     nodes: JSON.stringify(program.nodesProgram),
-    drawflow: JSON.stringify(program.drawflowProgram),
-  };
-  return objetData;
-};
+    drawflow: generateDrawflowData(
+      program.drawflowProgram,
+      program.nodesProgram
+    ),
+  }
+  return objetData
+}
 
-export { createID, convertDataPost };
+const generateDrawflowData = (drawflow, nodes) => {
+  const drawNodes = drawflow.drawflow.Home.data
+  for (const index in drawNodes) {
+    const drawNode = drawNodes[index]
+    const node = nodes.find((node) => node.nodeId == drawNode.id)
+    drawNode.data = node
+  }
+  return JSON.stringify(drawflow)
+}
+
+export { createID, convertDataPost }

@@ -13,22 +13,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from "vue";
+import { ref, onMounted, nextTick } from 'vue'
 
 const props = defineProps({
   title: String,
-});
+})
 
-const element = ref(null);
-const idNode = ref(0);
+const element = ref(null)
+const idNode = ref(0)
 
-const emitId = defineEmits(["onNodeId"]);
+const emitId = defineEmits(['onNodeId'])
 
 onMounted(async () => {
-  await nextTick();
-  idNode.value = element.value.parentElement.parentElement.id.slice(5);
-  emitId("onNodeId", idNode.value);
-});
+  await nextTick()
+  idNode.value = element.value.parentElement.parentElement.id.slice(5)
+  emitId('onNodeId', idNode.value)
+})
 </script>
 
 <style>

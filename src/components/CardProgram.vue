@@ -13,16 +13,13 @@
       <b>Description: </b>{{ program.description }}
     </p>
     <div class="flex justify-between">
-      <router-link to="/board">
-        <button
-          class="transition duration-300 p-1 rounded-lg font-bold border-2 bg-color hover:bg-blue-900"
-          @click="getProgramButton()"
-        >
-          <font-icon icon="fa-solid fa-laptop-code" />
-          Go To Board
-        </button>
-      </router-link>
-
+      <button
+        class="transition duration-300 p-1 rounded-lg font-bold border-2 bg-color hover:bg-blue-900"
+        @click="getProgramButton(program.id)"
+      >
+        <font-icon icon="fa-solid fa-laptop-code" />
+        Go To Board
+      </button>
       <p class="font-bold p-1">
         <font-icon icon="fa-solid fa-sitemap" />
         0
@@ -32,30 +29,27 @@
 </template>
 
 <script setup>
-import { getProgram } from "../utilities/api.js";
+import { getProgram } from '../utilities/api.js'
+import router from '../router'
 
 const props = defineProps({
   program: {
     type: Object,
     default: () => ({}),
   },
-});
+})
 
-//const nameProgram = ref("ProgramaPatito");
-//const idProgram = ref("00001");
-/*const description = ref(
-  "Lorem ipsum dolor sit, amet consectetur adipisicing elit."
-);*/
-
-const getProgramButton = (idProgram) => {
-  getProgram(idProgram);
-};
+const getProgramButton = async (idProgram) => {
+  await getProgram(idProgram)
+  router.push('/board')
+}
 </script>
 
 <style>
 .color-card {
   background-color: #100b36;
 }
+
 .box-shadow {
   -webkit-box-shadow: 0px 0px 5px 1px rgba(99, 167, 226, 0.9);
   -moz-box-shadow: 0px 0px 5px 1px rgba(105, 165, 221, 0.9);
