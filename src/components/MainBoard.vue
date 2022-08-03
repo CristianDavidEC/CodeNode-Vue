@@ -1,6 +1,7 @@
 <template>
   <div id="drawflow" @drop="renderNode($event)" @dragover="allowDrop($event)">
     <Terminal />
+    <AlertSave />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import {
   getCurrentInstance,
   inject,
 } from 'vue'
+import useProgramStore from '../store/program.js'
 import Drawflow from 'drawflow'
 import DfControl from './DrawFlowControll.vue'
 import BoxVariable from './boxes/BoxVariable.vue'
@@ -23,8 +25,8 @@ import BoxLogic from './boxes/BoxLogic.vue'
 import BoxCicle from './boxes/BoxCicle.vue'
 import BoxPrint from './boxes/BoxPrint.vue'
 import Terminal from './Terminal.vue'
+import AlertSave from './AlertSave.vue'
 import { nodesBase } from '../utilities/nodesBase'
-import useProgramStore from '../store/program.js'
 
 const drawFlow = shallowRef({})
 const vue = { version: 3, h, render }

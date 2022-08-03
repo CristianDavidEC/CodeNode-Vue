@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 import useProgramStore from '../store/program.js'
 import nodesToPython from '../utilities/toPython.js'
 import { runCode, saveProgram } from '../utilities/api.js'
@@ -50,7 +50,11 @@ const toPython = () => nodesToPython(programStore.nodesProgram)
 
 const save = () => {
   emitter.emit('saveProgram')
-  saveProgram()
+  saveProgram(launchNotification)
+}
+
+const launchNotification = (status) => {
+  emitter.emit('showNotification', status)
 }
 
 const executeProgram = () => {

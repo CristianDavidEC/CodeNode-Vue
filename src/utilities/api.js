@@ -33,7 +33,7 @@ const getProgram = async (idProgram) => {
     })
 }
 
-const saveProgram = async () => {
+const saveProgram = async (launchNotification) => {
   let newProgram = convertDataPost(programStore)
   const options = {
     method: 'POST',
@@ -41,11 +41,7 @@ const saveProgram = async () => {
     body: JSON.stringify(newProgram),
   }
   await fetch(`${url}save-program`, options).then((response) => {
-    if (response.status == 200) {
-      console.log('Program saved')
-      return
-    }
-    console.log('Error saving program')
+    launchNotification(response.status)
   })
 }
 
