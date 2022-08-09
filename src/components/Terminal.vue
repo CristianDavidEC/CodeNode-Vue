@@ -32,16 +32,17 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import useProgramStore from "../store/program.js";
-const programStore = useProgramStore();
+import { ref } from 'vue'
+import useProgramStore from '../store/program.js'
 
-const isOpen = ref(true);
+const programStore = useProgramStore()
+
+const isOpen = ref(true)
 </script>
 
 <style scoped>
 .font {
-  font-family: "Cascadia Code", monospace;
+  font-family: 'Cascadia Code', monospace;
 }
 textarea {
   resize: none;
