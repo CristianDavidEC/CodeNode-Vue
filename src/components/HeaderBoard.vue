@@ -40,7 +40,7 @@
 <script setup>
 import { inject, ref } from 'vue'
 import useProgramStore from '../store/program.js'
-import nodesToPython from '../utilities/toPython.js'
+import { nodesToPython } from '../utilities/toPython.js'
 import { runCode, saveProgram } from '../utilities/api.js'
 
 const programStore = useProgramStore()

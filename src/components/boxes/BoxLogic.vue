@@ -65,10 +65,10 @@ import { BIconShuffle } from 'bootstrap-icons-vue'
 import BoxNode from './BoxNode.vue'
 import {
   isValidReference,
-  getNodesReferences,
-  generateStatementCode,
+  getNodesByIdReference,
+  generateControlFlowCode,
   isParent,
-} from '../../utilities/functionsNodes.js'
+} from '../../utilities/nodesFunctions.js'
 
 const programStore = useProgramStore()
 const nodeInfo = reactive({
@@ -106,14 +106,17 @@ watch(nodeInfo, (nodeChange) => {
 
 const toPytonCode = (node) => {
   if (isValidReference(node)) {
-    node.pythonCode = formatCode(node)
+    node.pythonCode = assignPythonCode(node)
     return
   }
   node.pythonCode = null
 }
 
-const formatCode = (node) => {
-  let { nodeRef1, nodeRef2 } = getNodesReferences(node)
+const assignPythonCode = (node) => {
+  const { nodeRef1, nodeRef2 } = getNodesByIdReference(
+    node.nodeRefInput1,
+    node.nodeRefInput2
+  )
 
   let code =
     'if ' +
@@ -123,11 +126,11 @@ const formatCode = (node) => {
     ' ' +
     nodeRef2.identifier +
     ':\n' +
-    generateStatementCode(node.trueCondition, node.parentNode) +
+    generateControlFlowCode(node.trueCondition, node.parentNode) +
     '\n' +
     isParent(node.parentNode) +
     'else:\n' +
-    generateStatementCode(node.falseCondition, node.parentNode)
+    generateControlFlowCode(node.falseCondition, node.parentNode)
 
   return code
 }

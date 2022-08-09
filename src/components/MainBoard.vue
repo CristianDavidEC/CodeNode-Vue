@@ -32,7 +32,7 @@ const drawFlow = shallowRef({})
 const vue = { version: 3, h, render }
 const internalInstance = getCurrentInstance()
 internalInstance.appContext.app._context.config.globalProperties.$df = drawFlow
-const boxes = readonly(nodesBase)
+const boxesNode = readonly(nodesBase)
 const emitter = inject('emitter')
 
 const programStore = useProgramStore()
@@ -63,7 +63,7 @@ emitter.on('saveProgram', () => {
 const renderNode = (ev) => {
   ev.preventDefault()
   let nameNode = ev.dataTransfer.getData('node')
-  const node = boxes.find((box) => box.name == nameNode)
+  const node = boxesNode.find((box) => box.name == nameNode)
   let { x, y } = positionXY(ev.clientX, ev.clientY)
   drawFlow.value.addNode(
     node.name,

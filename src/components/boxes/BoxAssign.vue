@@ -36,7 +36,7 @@ import BoxNode from './BoxNode.vue'
 import useProgramStore from '../../store/program'
 import { BIconBoxArrowInRight } from 'bootstrap-icons-vue'
 import { reactive, watch, getCurrentInstance } from 'vue'
-import { validNodeType } from '../../utilities/constants.js'
+import { variableDeclarationType } from '../../utilities/constants.js'
 
 const programStore = useProgramStore()
 const nodeInfo = reactive({
@@ -77,17 +77,17 @@ const assingValue = (reference) => {
 const toPythonCode = (node) => {
   const nodeRef = programStore.getNode(node.nodeRefInput1)
   if (nodeRef) {
-    return assignPythonCode(node, nodeRef)
+    node.pythonCode = assignPythonCode(node, nodeRef)
+    return
   }
   node.pythonCode = null
 }
 
 const assignPythonCode = (node, nodeRef) => {
-  if (validNodeType[nodeRef.type]) {
-    node.pythonCode = `${node.identifier} = ${nodeRef.identifier}`
-    return
+  if (variableDeclarationType[nodeRef.type]) {
+    return `${node.identifier} = ${nodeRef.identifier}`
   }
-  node.pythonCode = `${node.identifier} = ${nodeRef.pythonCode}`
+  return `${node.identifier} = ${nodeRef.pythonCode}`
 }
 </script>
 

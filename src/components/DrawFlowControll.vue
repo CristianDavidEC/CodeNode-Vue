@@ -1,9 +1,11 @@
 <template></template>
 <script setup>
 /** This component control all events to drawflow object */
+
 import { getCurrentInstance } from 'vue'
 import useProgramStore from '../store/program'
-import { statementType } from '../utilities/constants.js'
+import { controlFlowStructure } from '../utilities/constants.js'
+import { getNodesByIdReference } from '../utilities/nodesFunctions.js'
 
 let dfcontrol =
   getCurrentInstance().appContext.config.globalProperties.$df.value
@@ -16,7 +18,7 @@ dfcontrol.on('nodeRemoved', function (id) {
 /**Watch the connection create for create the conecction into store program */
 dfcontrol.on('connectionCreated', function (connectionNode) {
   const { type } = programStore.getNode(connectionNode.output_id)
-  if (statementType[type]) {
+  if (controlFlowStructure[type]) {
     createParentConection(connectionNode)
     return
   }
@@ -26,7 +28,7 @@ dfcontrol.on('connectionCreated', function (connectionNode) {
 /**Watch the connection revomed for create the conecction into store program */
 dfcontrol.on('connectionRemoved', function (connectionNode) {
   const { type } = programStore.getNode(connectionNode.output_id)
-  if (statementType[type]) {
+  if (controlFlowStructure[type]) {
     removeParentConection(connectionNode)
     return
   }
@@ -43,9 +45,11 @@ const createConection = (connectionNode) => {
 }
 
 const createParentConection = (connectionNode) => {
-  const nodeOutput = programStore.getNode(connectionNode.output_id)
-  const nodeInput = programStore.getNode(connectionNode.input_id)
-
+  const { nodeOutput, nodeInput } = getNodesByIdReference(
+    connectionNode.output_id,
+    connectionNode.input_id
+  )
+  console.log(nodeOutput, nodeInput)
   nodeInput.parentNode = connectionNode.output_id
 
   if (nodeOutput.type == 'Cicle') {
@@ -70,8 +74,11 @@ const removeConecction = (connectionNode) => {
 }
 
 const removeParentConection = (connectionNode) => {
-  const nodeOutput = programStore.getNode(connectionNode.output_id)
-  const nodeInput = programStore.getNode(connectionNode.input_id)
+  console.log(connectionNode)
+  const { nodeOutput, nodeInput } = getNodesByIdReference(
+    connectionNode.output_id,
+    connectionNode.input_id
+  )
   nodeInput.parentNode = null
 
   if (nodeOutput.type == 'Cicle') {

@@ -51,19 +51,18 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import useProgramStrore from "../store/program.js";
-import { createID } from "../utilities/functions.js";
+import { ref } from 'vue'
+import useProgramStrore from '../store/program.js'
 
-const name = ref("");
-const description = ref("");
-const programStore = useProgramStrore();
+const name = ref('')
+const description = ref('')
+const programStore = useProgramStrore()
 
 const createProgram = () => {
-  programStore.resetProgram();
-  programStore.nameProgram = name.value;
-  programStore.descriptionProgram = description.value;
-};
+  programStore.resetProgram()
+  programStore.nameProgram = name.value
+  programStore.descriptionProgram = description.value
+}
 </script>
 
 <style>
