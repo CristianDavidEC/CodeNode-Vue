@@ -238,7 +238,7 @@ body {
 }
 
 .drawflow .connection .main-path.selected {
-  stroke: #7eb107b9;
+  stroke: #adab1c;
 }
 
 .drawflow .connection .point {
