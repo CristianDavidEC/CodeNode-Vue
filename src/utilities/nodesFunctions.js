@@ -14,7 +14,6 @@ const isValidReference = (node) => {
 const getNodesByIdReference = (idReference1, idReference2) => {
   const nodeRef1 = programStore.getNode(idReference1)
   const nodeRef2 = programStore.getNode(idReference2)
-  console.log(nodeRef1, nodeRef2)
   return { nodeRef1, nodeRef2 }
 }
 

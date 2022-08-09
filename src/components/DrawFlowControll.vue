@@ -36,32 +36,32 @@ dfcontrol.on('connectionRemoved', function (connectionNode) {
 })
 
 const createConection = (connectionNode) => {
-  const nodeInput = programStore.getNode(connectionNode.input_id)
+  const node = programStore.getNode(connectionNode.input_id)
   if (connectionNode.input_class == 'input_1') {
-    nodeInput.nodeRefInput1 = connectionNode.output_id
+    node.nodeRefInput1 = connectionNode.output_id
     return
   }
-  nodeInput.nodeRefInput2 = connectionNode.output_id
+  node.nodeRefInput2 = connectionNode.output_id
 }
 
 const createParentConection = (connectionNode) => {
-  const { nodeOutput, nodeInput } = getNodesByIdReference(
+  const { nodeRef1, nodeRef2 } = getNodesByIdReference(
     connectionNode.output_id,
     connectionNode.input_id
   )
-  console.log(nodeOutput, nodeInput)
-  nodeInput.parentNode = connectionNode.output_id
 
-  if (nodeOutput.type == 'Cicle') {
-    nodeOutput.cicle.push(connectionNode.input_id)
+  nodeRef2.parentNode = connectionNode.output_id
+
+  if (nodeRef1.type == 'Cicle') {
+    nodeRef1.cicle.push(connectionNode.input_id)
     return
   }
 
   if (connectionNode.output_class == 'output_1') {
-    nodeOutput.trueCondition.push(connectionNode.input_id)
+    nodeRef1.trueCondition.push(connectionNode.input_id)
     return
   }
-  nodeOutput.falseCondition.push(connectionNode.input_id)
+  nodeRef1.falseCondition.push(connectionNode.input_id)
 }
 
 const removeConecction = (connectionNode) => {
@@ -74,27 +74,27 @@ const removeConecction = (connectionNode) => {
 }
 
 const removeParentConection = (connectionNode) => {
-  console.log(connectionNode)
-  const { nodeOutput, nodeInput } = getNodesByIdReference(
+  const { nodeRef1, nodeRef2 } = getNodesByIdReference(
     connectionNode.output_id,
     connectionNode.input_id
   )
-  nodeInput.parentNode = null
+  nodeRef2.parentNode = null
 
-  if (nodeOutput.type == 'Cicle') {
-    nodeOutput.cicle = nodeOutput.cicle.filter(
+  if (nodeRef1.type === 'Cicle') {
+    nodeRef1.cicle = nodeRef1.cicle.filter(
       (node) => node !== connectionNode.input_id
     )
     return
   }
 
   if (connectionNode.output_class == 'output_1') {
-    nodeOutput.trueCondition = nodeOutput.trueCondition.filter(
+    nodeRef1.trueCondition = nodeRef1.trueCondition.filter(
       (node) => node !== connectionNode.input_id
     )
     return
   }
-  nodeOutput.falseCondition = nodeOutput.falseCondition.filter(
+
+  nodeRef1.falseCondition = nodeRef1.falseCondition.filter(
     (node) => node !== connectionNode.input_id
   )
 }
