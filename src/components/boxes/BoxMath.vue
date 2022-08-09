@@ -67,8 +67,8 @@ import {
 } from 'bootstrap-icons-vue'
 import {
   isValidReference,
-  getNodesReferences,
-} from '../../utilities/functionsNodes.js'
+  getNodesByIdReference,
+} from '../../utilities/nodesFunctions.js'
 
 import BoxNode from './BoxNode.vue'
 
@@ -107,28 +107,31 @@ watch(nodeInfo, (nodeChanged) => {
   nodeChanged.value = null
 })
 
-const calculateValue = (nodeChange) => {
-  let { nodeRef1, nodeRef2 } = getNodesReferences(nodeChange)
-  nodeChange.pythonCode = `${nodeRef1.identifier} ${nodeChange.operation} ${nodeRef2.identifier}`
+const calculateValue = (node) => {
+  const { nodeRef1, nodeRef2 } = getNodesByIdReference(
+    node.nodeRefInput1,
+    node.nodeRefInput2
+  )
+  node.pythonCode = `${nodeRef1.identifier} ${node.operation} ${nodeRef2.identifier}`
 
-  switch (nodeChange.operation) {
+  switch (node.operation) {
     case '+':
-      nodeChange.value = nodeRef1.value + nodeRef2.value
+      node.value = nodeRef1.value + nodeRef2.value
       break
     case '-':
-      nodeChange.value = nodeRef1.value - nodeRef2.value
+      node.value = nodeRef1.value - nodeRef2.value
       break
     case '*':
-      nodeChange.value = nodeRef1.value * nodeRef2.value
+      node.value = nodeRef1.value * nodeRef2.value
       break
     case '/':
-      nodeChange.value = nodeRef1.value / nodeRef2.value
+      node.value = nodeRef1.value / nodeRef2.value
       break
     case '%':
-      nodeChange.value = nodeRef1.value % nodeRef2.value
+      node.value = nodeRef1.value % nodeRef2.value
       break
     default:
-      nodeChange.value = null
+      node.value = null
       break
   }
 }

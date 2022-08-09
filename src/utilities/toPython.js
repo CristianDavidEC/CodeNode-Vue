@@ -1,16 +1,19 @@
-import useProgramStore from "../store/program.js";
-const programStore = useProgramStore();
+import useProgramStore from '../store/program.js'
+const programStore = useProgramStore()
 
+/**
+ * Create the python code string of all nodes
+ */
 const nodesToPython = (nodesProgram) => {
-  let code = ``;
+  let code = ``
 
   for (const node of nodesProgram) {
-    const { parentNode, pythonCode } = node;
-    if (!parentNode) {
-      code += `${pythonCode} \n`;
+    const { parentNode, pythonCode, type } = node
+    if (!parentNode && type !== 'MathOperation') {
+      code += `${pythonCode} \n`
     }
   }
-  programStore.pythonCode = code;
-};
+  programStore.pythonCode = code
+}
 
-export default nodesToPython;
+export { nodesToPython }

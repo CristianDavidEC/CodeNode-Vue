@@ -1,11 +1,11 @@
-const statementType = {
+const controlFlowStructure = {
   LogicOperation: true,
   Cicle: true,
-};
+}
 
-const validNodeType = {
+const variableDeclarationType = {
   Variable: true,
   Assign: true,
-};
+}
 
-export { validNodeType, statementType };
+export { variableDeclarationType, controlFlowStructure }

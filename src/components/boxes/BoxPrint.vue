@@ -29,7 +29,7 @@ import { reactive, watch, getCurrentInstance } from 'vue'
 import useProgramStore from '../../store/program.js'
 import { BIconPrinter } from 'bootstrap-icons-vue'
 import BoxNode from './BoxNode.vue'
-import { validNodeType } from '../../utilities/constants.js'
+import { variableDeclarationType } from '../../utilities/constants.js'
 
 const programStore = useProgramStore()
 
@@ -72,17 +72,17 @@ const assigValue = (reference) => {
 const toPythonCode = (node) => {
   const nodeRef = programStore.getNode(node.nodeRefInput1)
   if (nodeRef) {
-    return assignPythonCode(node, nodeRef)
+    node.pythonCode = assignPythonCode(node, nodeRef)
+    return
   }
   node.pythonCode = `print("${node.message}")`
-  node.nodeRefInput1 = null
+  //node.nodeRefInput1 = null
 }
 
 const assignPythonCode = (node, nodeRef) => {
-  if (validNodeType[nodeRef.type]) {
-    node.pythonCode = `print("${node.message}" , ${nodeRef.identifier})`
-    return
+  if (variableDeclarationType[nodeRef.type]) {
+    return `print("${node.message}" , ${nodeRef.identifier})`
   }
-  node.pythonCode = `print("${node.message}" , ${nodeRef.pythonCode})`
+  return `print("${node.message}" , ${nodeRef.pythonCode})`
 }
 </script>

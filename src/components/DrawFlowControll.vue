@@ -1,9 +1,11 @@
 <template></template>
 <script setup>
 /** This component control all events to drawflow object */
+
 import { getCurrentInstance } from 'vue'
 import useProgramStore from '../store/program'
-import { statementType } from '../utilities/constants.js'
+import { controlFlowStructure } from '../utilities/constants.js'
+import { getNodesByIdReference } from '../utilities/nodesFunctions.js'
 
 let dfcontrol =
   getCurrentInstance().appContext.config.globalProperties.$df.value
@@ -16,7 +18,7 @@ dfcontrol.on('nodeRemoved', function (id) {
 /**Watch the connection create for create the conecction into store program */
 dfcontrol.on('connectionCreated', function (connectionNode) {
   const { type } = programStore.getNode(connectionNode.output_id)
-  if (statementType[type]) {
+  if (controlFlowStructure[type]) {
     createParentConection(connectionNode)
     return
   }
@@ -26,7 +28,7 @@ dfcontrol.on('connectionCreated', function (connectionNode) {
 /**Watch the connection revomed for create the conecction into store program */
 dfcontrol.on('connectionRemoved', function (connectionNode) {
   const { type } = programStore.getNode(connectionNode.output_id)
-  if (statementType[type]) {
+  if (controlFlowStructure[type]) {
     removeParentConection(connectionNode)
     return
   }
@@ -34,30 +36,32 @@ dfcontrol.on('connectionRemoved', function (connectionNode) {
 })
 
 const createConection = (connectionNode) => {
-  const nodeInput = programStore.getNode(connectionNode.input_id)
+  const node = programStore.getNode(connectionNode.input_id)
   if (connectionNode.input_class == 'input_1') {
-    nodeInput.nodeRefInput1 = connectionNode.output_id
+    node.nodeRefInput1 = connectionNode.output_id
     return
   }
-  nodeInput.nodeRefInput2 = connectionNode.output_id
+  node.nodeRefInput2 = connectionNode.output_id
 }
 
 const createParentConection = (connectionNode) => {
-  const nodeOutput = programStore.getNode(connectionNode.output_id)
-  const nodeInput = programStore.getNode(connectionNode.input_id)
+  const { nodeRef1, nodeRef2 } = getNodesByIdReference(
+    connectionNode.output_id,
+    connectionNode.input_id
+  )
 
-  nodeInput.parentNode = connectionNode.output_id
+  nodeRef2.parentNode = connectionNode.output_id
 
-  if (nodeOutput.type == 'Cicle') {
-    nodeOutput.cicle.push(connectionNode.input_id)
+  if (nodeRef1.type == 'Cicle') {
+    nodeRef1.cicle.push(connectionNode.input_id)
     return
   }
 
   if (connectionNode.output_class == 'output_1') {
-    nodeOutput.trueCondition.push(connectionNode.input_id)
+    nodeRef1.trueCondition.push(connectionNode.input_id)
     return
   }
-  nodeOutput.falseCondition.push(connectionNode.input_id)
+  nodeRef1.falseCondition.push(connectionNode.input_id)
 }
 
 const removeConecction = (connectionNode) => {
@@ -70,24 +74,27 @@ const removeConecction = (connectionNode) => {
 }
 
 const removeParentConection = (connectionNode) => {
-  const nodeOutput = programStore.getNode(connectionNode.output_id)
-  const nodeInput = programStore.getNode(connectionNode.input_id)
-  nodeInput.parentNode = null
+  const { nodeRef1, nodeRef2 } = getNodesByIdReference(
+    connectionNode.output_id,
+    connectionNode.input_id
+  )
+  nodeRef2.parentNode = null
 
-  if (nodeOutput.type == 'Cicle') {
-    nodeOutput.cicle = nodeOutput.cicle.filter(
+  if (nodeRef1.type === 'Cicle') {
+    nodeRef1.cicle = nodeRef1.cicle.filter(
       (node) => node !== connectionNode.input_id
     )
     return
   }
 
   if (connectionNode.output_class == 'output_1') {
-    nodeOutput.trueCondition = nodeOutput.trueCondition.filter(
+    nodeRef1.trueCondition = nodeRef1.trueCondition.filter(
       (node) => node !== connectionNode.input_id
     )
     return
   }
-  nodeOutput.falseCondition = nodeOutput.falseCondition.filter(
+
+  nodeRef1.falseCondition = nodeRef1.falseCondition.filter(
     (node) => node !== connectionNode.input_id
   )
 }

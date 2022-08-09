@@ -19,9 +19,10 @@ import useProgramStore from '../../store/program.js'
 import { BIconArrowRepeat } from 'bootstrap-icons-vue'
 import BoxNode from './BoxNode.vue'
 import {
-  getNodesReferences,
-  generateStatementCode,
-} from '../../utilities/functionsNodes.js'
+  getNodesByIdReference,
+  generateControlFlowCode,
+  isValidReference,
+} from '../../utilities/nodesFunctions.js'
 
 const programStore = useProgramStore()
 
@@ -54,15 +55,18 @@ watch(nodeInfo, (nodeChange) => {
 })
 
 const toPytonCode = (node) => {
-  if (node.nodeRefInput1 && node.nodeRefInput2) {
-    node.pythonCode = formatCode(node)
-  } else {
-    node.pythonCode = null
+  if (isValidReference(node)) {
+    node.pythonCode = assignPythonCode(node)
+    return
   }
+  node.pythonCode = null
 }
 
-const formatCode = (node) => {
-  let { nodeRef1, nodeRef2 } = getNodesReferences(node)
+const assignPythonCode = (node) => {
+  const { nodeRef1, nodeRef2 } = getNodesByIdReference(
+    node.nodeRefInput1,
+    node.nodeRefInput2
+  )
 
   let code =
     'for i in range( ' +
@@ -70,7 +74,7 @@ const formatCode = (node) => {
     ', ' +
     nodeRef2.identifier +
     ' + 1 ):\n' +
-    generateStatementCode(node.cicle, node.parentNode)
+    generateControlFlowCode(node.cicle, node.parentNode)
 
   return code
 }
