@@ -69,6 +69,7 @@ import {
   isValidReference,
   getNodesByIdReference,
 } from '../../utilities/nodesFunctions.js'
+import { getDrawflow } from '../../utilities/functions.js'
 
 import BoxNode from './BoxNode.vue'
 
@@ -84,8 +85,7 @@ const nodeInfo = reactive({
   pythonCode: null,
 })
 
-const drawFlow =
-  getCurrentInstance().appContext.config.globalProperties.$df.value
+const drawFlow = getDrawflow(getCurrentInstance)
 programStore.addNodeProgram(nodeInfo)
 
 const addDataNode = (event) => {

@@ -36,6 +36,7 @@ import BoxNode from './BoxNode.vue'
 import { BIconBoxes } from 'bootstrap-icons-vue'
 import { reactive, watch, getCurrentInstance } from 'vue'
 import useProgramStore from '../../store/program.js'
+import { getDrawflow } from '../../utilities/functions.js'
 
 const programStore = useProgramStore()
 const nodeInfo = reactive({
@@ -47,8 +48,7 @@ const nodeInfo = reactive({
   pythonCode: null,
 })
 
-const drawFlow =
-  getCurrentInstance().appContext.config.globalProperties.$df.value
+const drawFlow = getDrawflow(getCurrentInstance)
 programStore.addNodeProgram(nodeInfo)
 
 const addDataNode = (event) => {

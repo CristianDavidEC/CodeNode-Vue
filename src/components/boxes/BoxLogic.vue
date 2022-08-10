@@ -69,6 +69,7 @@ import {
   generateControlFlowCode,
   isParent,
 } from '../../utilities/nodesFunctions.js'
+import { getDrawflow } from '../../utilities/functions.js'
 
 const programStore = useProgramStore()
 const nodeInfo = reactive({
@@ -83,8 +84,7 @@ const nodeInfo = reactive({
   pythonCode: null,
 })
 
-const drawFlow =
-  getCurrentInstance().appContext.config.globalProperties.$df.value
+const drawFlow = getDrawflow(getCurrentInstance)
 programStore.addNodeProgram(nodeInfo)
 
 const addDataNode = (event) => {

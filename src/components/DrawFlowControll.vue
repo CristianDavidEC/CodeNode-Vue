@@ -5,16 +5,16 @@
 import { getCurrentInstance } from 'vue'
 import { controlFlowStructure } from '../utilities/constants.js'
 import { getNodesByIdReference } from '../utilities/nodesFunctions.js'
+import { getDrawflow } from '../utilities/functions.js'
 import useProgramStore from '../store/program'
 
-const dfcontrol =
-  getCurrentInstance().appContext.config.globalProperties.$df.value
+const drawFlow = getDrawflow(getCurrentInstance)
 const programStore = useProgramStore()
 
 /**
  * When deleting a drawflow node, remove from the program store
  */
-dfcontrol.on('nodeRemoved', function (id) {
+drawFlow.on('nodeRemoved', function (id) {
   programStore.removeNodeProgram(id)
 })
 
@@ -22,7 +22,7 @@ dfcontrol.on('nodeRemoved', function (id) {
  * Watch the event connection create and create the connection
  * into programStore, from the type of node connected.
  */
-dfcontrol.on('connectionCreated', function (connectionNode) {
+drawFlow.on('connectionCreated', function (connectionNode) {
   const { type } = programStore.getNode(connectionNode.output_id)
   if (controlFlowStructure[type]) {
     createParentConection(connectionNode)
@@ -74,7 +74,7 @@ const addChildReference = (parentNode, connectionNode) => {
  * Watch the event connection revomed and remove the connection
  * into programStore, from the type of node connected.
  * */
-dfcontrol.on('connectionRemoved', function (connectionNode) {
+drawFlow.on('connectionRemoved', function (connectionNode) {
   const { type } = programStore.getNode(connectionNode.output_id)
   if (controlFlowStructure[type]) {
     removeParentConection(connectionNode)

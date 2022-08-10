@@ -35,4 +35,10 @@ const generateDrawflowData = (drawflow, nodes) => {
   }
   return JSON.stringify(drawflow)
 }
-export { createID, convertDataPost }
+
+const getDrawflow = (getCurrentInstance) => {
+  const drawFlow =
+    getCurrentInstance().appContext.config.globalProperties.$df.value
+  return drawFlow
+}
+export { createID, convertDataPost, getDrawflow }
