@@ -24,6 +24,7 @@ const idNode = ref(0)
 
 const emitId = defineEmits(['onNodeId'])
 
+/**Get the id of the component assigned by drawflow */
 onMounted(async () => {
   await nextTick()
   idNode.value = element.value.parentElement.parentElement.id.slice(5)

@@ -35,5 +35,4 @@ const generateDrawflowData = (drawflow, nodes) => {
   }
   return JSON.stringify(drawflow)
 }
-
 export { createID, convertDataPost }

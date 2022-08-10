@@ -83,7 +83,8 @@ const nodeInfo = reactive({
   pythonCode: null,
 })
 
-let drawFlow = getCurrentInstance().appContext.config.globalProperties.$df.value
+const drawFlow =
+  getCurrentInstance().appContext.config.globalProperties.$df.value
 programStore.addNodeProgram(nodeInfo)
 
 const addDataNode = (event) => {
