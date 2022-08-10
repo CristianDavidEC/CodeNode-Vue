@@ -11,6 +11,9 @@ export default defineStore('program', {
   }),
 
   getters: {
+    /**
+     * Get a node by id
+     */
     getNode: (state) => (id) => {
       return state.nodesProgram.find((node) => node.nodeId === id)
     },

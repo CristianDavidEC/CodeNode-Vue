@@ -1,7 +1,13 @@
+/**
+ * Generate a unique id to program randomly
+ */
 const createID = () => {
   return Math.floor(Math.random() * 10000000000).toString()
 }
 
+/**
+ * Formatting the data to be sent to the server
+ */
 const convertDataPost = (program) => {
   program.idProgram = createID()
   const objetData = {
@@ -17,6 +23,9 @@ const convertDataPost = (program) => {
   return objetData
 }
 
+/**
+ * Add data to drawflow object with the nodes data in the store program
+ */
 const generateDrawflowData = (drawflow, nodes) => {
   const drawNodes = drawflow.drawflow.Home.data
   for (const index in drawNodes) {

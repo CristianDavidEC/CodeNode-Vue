@@ -4,6 +4,9 @@ import { convertDataPost } from '../utilities/functions.js'
 const programStore = useProgramStore()
 const url = 'http://localhost:3080/'
 
+/**
+ * Petition to get all programs
+ */
 const getAllPrograms = async (loadProgramsCard) => {
   const options = {
     method: 'GET',
@@ -19,6 +22,9 @@ const getAllPrograms = async (loadProgramsCard) => {
     })
 }
 
+/**
+ * Petition to get a program by id
+ */
 const getProgram = async (idProgram) => {
   const options = {
     method: 'GET',
@@ -33,6 +39,9 @@ const getProgram = async (idProgram) => {
     })
 }
 
+/**
+ * Petition to save a new program
+ */
 const saveProgram = async (launchNotification) => {
   let newProgram = convertDataPost(programStore)
   const options = {
@@ -45,6 +54,9 @@ const saveProgram = async (launchNotification) => {
   })
 }
 
+/**
+ * Petition run python code and get the result of the program
+ */
 const runCode = async () => {
   const options = {
     method: 'POST',

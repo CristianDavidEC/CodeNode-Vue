@@ -3,6 +3,7 @@ const programStore = useProgramStore()
 
 /**
  * Create the python code string of all nodes
+ * from the code that has each node
  */
 const nodesToPython = (nodesProgram) => {
   let code = ``

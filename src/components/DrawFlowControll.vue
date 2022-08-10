@@ -11,6 +11,9 @@ const dfcontrol =
   getCurrentInstance().appContext.config.globalProperties.$df.value
 const programStore = useProgramStore()
 
+/**
+ * When deleting a drawflow node, remove from the program store
+ */
 dfcontrol.on('nodeRemoved', function (id) {
   programStore.removeNodeProgram(id)
 })
@@ -47,7 +50,6 @@ const createParentConection = (connectionNode) => {
     connectionNode.output_id,
     connectionNode.input_id
   )
-
   nodeRef2.parentNode = connectionNode.output_id
   addChildReference(nodeRef1, connectionNode)
 }

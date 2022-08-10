@@ -36,6 +36,7 @@ const boxesNode = readonly(nodesBase)
 const emitter = inject('emitter')
 
 const programStore = useProgramStore()
+
 /**
  * Create a instance of Drawflow and register the node components
  */

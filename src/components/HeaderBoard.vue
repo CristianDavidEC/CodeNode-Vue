@@ -38,10 +38,10 @@
 </template>
 
 <script setup>
-import { inject, ref } from 'vue'
-import useProgramStore from '../store/program.js'
+import { inject } from 'vue'
 import { nodesToPython } from '../utilities/toPython.js'
 import { runCode, saveProgram } from '../utilities/api.js'
+import useProgramStore from '../store/program.js'
 
 const programStore = useProgramStore()
 const emitter = inject('emitter')
