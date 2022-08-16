@@ -21,21 +21,22 @@
     </div>
   </div>
 </template>
-<script setup>
-import { onMounted, ref } from "vue";
-import CardProgram from "../components/CardProgram.vue";
-import CardCreateProgram from "../components/CardCreateProgram.vue";
-import { getAllPrograms } from "../utilities/api.js";
 
-const listPrograms = ref([]);
+<script setup>
+import { onMounted, ref } from 'vue'
+import CardProgram from '../components/CardProgram.vue'
+import CardCreateProgram from '../components/CardCreateProgram.vue'
+import { getAllPrograms } from '../utilities/api.js'
+
+const listPrograms = ref([])
 
 onMounted(() => {
-  getAllPrograms(loadProgramsCard);
-});
+  getAllPrograms(loadProgramsCard)
+})
 
 const loadProgramsCard = (data) => {
-  listPrograms.value = data;
-};
+  listPrograms.value = data
+}
 </script>
 
 <style>

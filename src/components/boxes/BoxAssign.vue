@@ -86,7 +86,7 @@ const toPythonCode = (node) => {
 
 const assignPythonCode = (node, nodeRef) => {
   if (variableDeclarationType[nodeRef.type]) {
-    return `${node.identifier} = ${nodeRef.identifier}`
+    return `${node.identifier} = ${nodeRef.identifier}` // os.resert() # /n a = i
   }
   return `${node.identifier} = ${nodeRef.pythonCode}`
 }
