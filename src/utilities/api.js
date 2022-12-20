@@ -8,18 +8,20 @@ const url = "https://18jypoqcu5.execute-api.us-east-1.amazonaws.com/staging"
 /**
  * Petition to get all programs
  */
-const getAllPrograms = async (loadProgramsCard) => {
+const getAllPrograms = (loadProgramsCard) => {
   const options = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
   }
 
-  await fetch(url, options)
+  fetch(url, options)
     .then((response) => {
       return response.json()
     })
     .then((data) => {
-      loadProgramsCard(data.getAllPrograms)
+      loadProgramsCard(data)
     })
 }
 
@@ -29,9 +31,15 @@ const getAllPrograms = async (loadProgramsCard) => {
 const getProgram = async (idProgram) => {
   const options = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
   }
-  await fetch(`${url}/{idProgram}`, options)
+  const paramsQuery = new URLSearchParams({
+    id: idProgram,
+  })
+
+  await fetch(`${url}?${paramsQuery}`, options)
     .then((response) => {
       return response.json()
     })
@@ -47,7 +55,9 @@ const saveProgram = async (launchNotification) => {
   let newProgram = convertDataPost(programStore)
   const options = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(newProgram),
   }
   await fetch(`${url}`, options).then((response) => {
@@ -61,7 +71,9 @@ const saveProgram = async (launchNotification) => {
 const runCode = async () => {
   const options = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ code: programStore.pythonCode }),
   }
   await fetch(`${url}/runcode`, options)

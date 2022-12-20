@@ -35,6 +35,7 @@ onMounted(() => {
 })
 
 const loadProgramsCard = (data) => {
+  console.log(data)
   listPrograms.value = data
 }
 </script>
