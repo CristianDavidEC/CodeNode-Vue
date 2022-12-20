@@ -1,19 +1,20 @@
-import useProgramStore from '../store/program.js'
-import { convertDataPost } from '../utilities/functions.js'
+import useProgramStore from "../store/program.js"
+import { convertDataPost } from "../utilities/functions.js"
 
 const programStore = useProgramStore()
-const url = 'http://localhost:3080/'
+//const url = 'http://localhost:3080/'
+const url = "https://18jypoqcu5.execute-api.us-east-1.amazonaws.com/staging"
 
 /**
  * Petition to get all programs
  */
 const getAllPrograms = async (loadProgramsCard) => {
   const options = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
   }
 
-  await fetch(`${url}get-all-programs`, options)
+  await fetch(url, options)
     .then((response) => {
       return response.json()
     })
@@ -27,10 +28,10 @@ const getAllPrograms = async (loadProgramsCard) => {
  */
 const getProgram = async (idProgram) => {
   const options = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
   }
-  await fetch(`${url}get-program/${idProgram}`, options)
+  await fetch(`${url}/{idProgram}`, options)
     .then((response) => {
       return response.json()
     })
@@ -45,11 +46,11 @@ const getProgram = async (idProgram) => {
 const saveProgram = async (launchNotification) => {
   let newProgram = convertDataPost(programStore)
   const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newProgram),
   }
-  await fetch(`${url}save-program`, options).then((response) => {
+  await fetch(`${url}`, options).then((response) => {
     launchNotification(response.status)
   })
 }
@@ -59,11 +60,11 @@ const saveProgram = async (launchNotification) => {
  */
 const runCode = async () => {
   const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ code: programStore.pythonCode }),
   }
-  await fetch(`${url}run-code`, options)
+  await fetch(`${url}/runcode`, options)
     .then((response) => {
       return response.json()
     })
