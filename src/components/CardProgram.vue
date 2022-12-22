@@ -20,17 +20,24 @@
         <font-icon icon="fa-solid fa-laptop-code" />
         Go To Board
       </button>
-      <p class="font-bold p-1">
-        <font-icon icon="fa-solid fa-sitemap" />
-        0
-      </p>
+
+      <button
+        class="transition duration-300 p-1 px-2 rounded-lg font-bold border-2 bg-red-800/70 hover:bg-red-800"
+        @click="deleteProgramButton(program.id)"
+      >
+        <font-icon icon="fa-solid fa-trash" />
+      </button>
+    
     </div>
   </div>
 </template>
 
 <script setup>
-import { getProgram } from '../utilities/api.js'
+import { inject } from 'vue'
+import { getProgram, deleteProgram } from '../utilities/api.js'
 import router from '../router'
+const emitter = inject('emitter')
+
 
 const props = defineProps({
   program: {
@@ -43,6 +50,26 @@ const getProgramButton = async (idProgram) => {
   await getProgram(idProgram)
   router.push('/board')
 }
+
+const emitDelete = defineEmits(['deleteEvent'])
+
+const deleteProgramButton = (idProgram) => {
+  deleteProgram(idProgram, launchNotification)
+  emitDelete('deleteEvent', idProgram)
+}
+
+const launchNotification = (status) => {
+  console.log(status)
+  const infoEvent = {
+    status: status,
+    messageOk: 'El programa se ha Eliminado con Exito!',
+    messageFall: 'Tenemos Problemas al Eliminar el Programa'
+  }
+
+  emitter.emit('showNotification', infoEvent)
+}
+
+
 </script>
 
 <style>

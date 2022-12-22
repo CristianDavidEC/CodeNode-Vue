@@ -3,6 +3,7 @@
     <div
       class="w-full max-h border-2 border-white rounded-2xl overflow-y-scroll relative"
     >
+    <AlertSave />
       <header class="sticky top-0 bg-color py-2 px-5">
         <h1
           class="font-bold text-4xl tracking-tight text-white mb-1 text-center border-b-2 pb-2 border-sky-600"
@@ -15,7 +16,7 @@
       <main class="grid grid-cols-4 px-6 place-items-center">
         <CardCreateProgram />
         <div v-for="programInfo in listPrograms">
-          <CardProgram :program="programInfo" />
+          <CardProgram :program="programInfo" @deleteEvent="deleteProgram($event)" />
         </div>
       </main>
     </div>
@@ -23,20 +24,25 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, reactive } from 'vue'
 import CardProgram from '../components/CardProgram.vue'
+import AlertSave from '../components/AlertSave.vue'
 import CardCreateProgram from '../components/CardCreateProgram.vue'
 import { getAllPrograms } from '../utilities/api.js'
 
-const listPrograms = ref([])
+let listPrograms = reactive([])
 
 onMounted(() => {
   getAllPrograms(loadProgramsCard)
 })
 
+const deleteProgram = (idProgram) => {
+  const index = listPrograms.findIndex((program) => program.id === idProgram)
+  listPrograms.splice(index, 1)
+}
+
 const loadProgramsCard = (data) => {
-  console.log(data)
-  listPrograms.value = data
+  listPrograms.push(...data)
 }
 </script>
 

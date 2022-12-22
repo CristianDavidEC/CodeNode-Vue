@@ -54,7 +54,13 @@ const save = () => {
 }
 
 const launchNotification = (status) => {
-  emitter.emit('showNotification', status)
+  const infoEvent = {
+    status: status,
+    messageOk: 'El programa se ha Guardado con Exito!',
+    messageFall: 'Tenemos Problemas al Guardar el Programa'
+  }
+
+  emitter.emit('showNotification', infoEvent)
 }
 
 const executeProgram = () => {

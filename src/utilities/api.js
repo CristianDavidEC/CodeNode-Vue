@@ -44,7 +44,7 @@ const getProgram = async (idProgram) => {
       return response.json()
     })
     .then((data) => {
-      programStore.setProgram(data.getProgram[0])
+      programStore.setProgram(data)
     })
 }
 
@@ -61,6 +61,26 @@ const saveProgram = async (launchNotification) => {
     body: JSON.stringify(newProgram),
   }
   await fetch(`${url}`, options).then((response) => {
+    launchNotification(response.status)
+  })
+}
+
+/**
+ * Delete program by id
+ */
+const deleteProgram = async (idProgram, launchNotification) => {
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+
+  const paramsQuery = new URLSearchParams({
+    id: idProgram,
+  })
+
+  await fetch(`${url}?${paramsQuery}`, options).then((response) => {
     launchNotification(response.status)
   })
 }
@@ -85,4 +105,4 @@ const runCode = async () => {
     })
 }
 
-export { getAllPrograms, getProgram, saveProgram, runCode }
+export { getAllPrograms, getProgram, saveProgram, deleteProgram, runCode }
