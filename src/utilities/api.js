@@ -66,6 +66,24 @@ const saveProgram = async (launchNotification) => {
 }
 
 /**
+ * Petition to update a program
+ */
+const updateProgram = async (launchNotification) => {
+  let upProgram = convertDataPost(programStore)
+  const options = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(upProgram),
+  }
+
+  await fetch(`${url}`, options).then((response) => {
+    launchNotification(response.status)
+  })
+}
+
+/**
  * Delete program by id
  */
 const deleteProgram = async (idProgram, launchNotification) => {
@@ -101,8 +119,15 @@ const runCode = async () => {
       return response.json()
     })
     .then((data) => {
-      programStore.pythonCode = data.code
+      programStore.pythonCode = data
     })
 }
 
-export { getAllPrograms, getProgram, saveProgram, deleteProgram, runCode }
+export {
+  getAllPrograms,
+  getProgram,
+  saveProgram,
+  deleteProgram,
+  updateProgram,
+  runCode,
+}

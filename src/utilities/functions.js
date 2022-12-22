@@ -9,7 +9,10 @@ const createID = () => {
  * Formatting the data to be sent to the server
  */
 const convertDataPost = (program) => {
-  program.idProgram = createID()
+  if (program.idProgram == "") {
+    program.idProgram = createID()
+  }
+
   const objetData = {
     id: program.idProgram,
     name: program.nameProgram,

@@ -39,6 +39,6 @@ emitter.on('showNotification', (infoEvent) => {
   show.value = true
   setTimeout(() => {
     show.value = false
-  }, 2000)
+  }, 3000)
 })
 </script>

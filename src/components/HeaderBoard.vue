@@ -6,8 +6,16 @@
           class="px-5 py-1 rounded-full border-2 transition duration-150 hover:bg-blue-900"
           @click="save"
         >
-          <font-icon icon="fa-solid fa-floppy-disk" />
+        <font-icon icon="fa-solid fa-floppy-disk" />
           Save
+        </button>
+
+        <button
+          class="px-5 py-1 rounded-full border-2 transition duration-150 hover:bg-blue-900"
+          @click="update"
+        >
+          <font-icon icon="fa-solid fa-pen-to-square"/>
+          Update
         </button>
 
         <button
@@ -40,7 +48,7 @@
 <script setup>
 import { inject } from 'vue'
 import { nodesToPython } from '../utilities/toPython.js'
-import { runCode, saveProgram } from '../utilities/api.js'
+import { runCode, saveProgram, updateProgram } from '../utilities/api.js'
 import useProgramStore from '../store/program.js'
 
 const programStore = useProgramStore()
@@ -51,6 +59,11 @@ const toPython = () => nodesToPython(programStore.nodesProgram)
 const save = () => {
   emitter.emit('saveProgram')
   saveProgram(launchNotification)
+}
+
+const update = () => {
+  emitter.emit('saveProgram')
+  updateProgram(launchNotification)
 }
 
 const launchNotification = (status) => {
